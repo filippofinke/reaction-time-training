@@ -1,22 +1,22 @@
 #define SIZE 12
 #define JUNIOR_SIZE 8
-int buttonPins[SIZE] = {22,24,26,28,30,32,34,36,38,40,42,44};
-int ledPins[SIZE] =    {23,25,27,29,31,33,35,37,39,41,43,45};
+int buttonPins[SIZE] = {22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44};
+int ledPins[SIZE] =    {23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45};
 
-int juniorPins[JUNIOR_SIZE] = {22,24,26,28,30,32,42,44};
+int juniorPins[JUNIOR_SIZE] = {22, 24, 26, 28, 30, 32, 42, 44};
 
 
 int getRandom(int pins[], int size) {
-  return pins[random(0,size + 1)];
+  return pins[random(0, size + 1)];
 }
 
 
 void waitUser() {
   bool state = false;
   int counter = 0;
-  while(!state)
+  while (!state)
   {
-    if(counter>= 1000)
+    if (counter >= 1000)
     {
       counter = 0;
       int ledPin = getRandom(ledPins, SIZE);
@@ -29,7 +29,7 @@ void waitUser() {
   }
   resetLeds();
   bool ls = LOW;
-  for(int i = 0; i < 3; i++)
+  for (int i = 0; i < 3; i++)
   {
     ls = !ls;
     digitalWrite(45, ls);
@@ -39,8 +39,8 @@ void waitUser() {
 }
 
 void resetLeds() {
-  for(int i = 0; i < SIZE; i++)
-  { 
+  for (int i = 0; i < SIZE; i++)
+  {
     digitalWrite(ledPins[i], LOW);
   }
 }
@@ -51,8 +51,8 @@ bool isPressed(int pin)
 }
 
 void pinSetup() {
-  for(int i = 0; i < SIZE; i++)
-  { 
+  for (int i = 0; i < SIZE; i++)
+  {
     pinMode(ledPins[i], OUTPUT);
     pinMode(buttonPins[i], INPUT);
   }
@@ -63,7 +63,7 @@ void cumulative(long duration, bool senior) {
   long reactionTime = 0;
   long time = 0;
   int currentPin;
-  if(senior)
+  if (senior)
   {
     currentPin = getRandom(buttonPins, SIZE);
   }
@@ -73,22 +73,22 @@ void cumulative(long duration, bool senior) {
   }
   int pressedButtons = 0;
   digitalWrite(currentPin + 1, HIGH);
-  
-  while(time <= duration)
+
+  while (time <= duration)
   {
     time = (millis() - start);
-    if(time % 1000 == 0)
+    if (time % 1000 == 0)
     {
       Serial.print("Tempo rimanente: ");
       Serial.println((duration - time) / 1000);
     }
-    if(isPressed(currentPin))
+    if (isPressed(currentPin))
     {
       pressedButtons++;
       Serial.print("Premuto: ");
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
-      if(senior)
+      if (senior)
       {
         currentPin = getRandom(buttonPins, SIZE);
       }
