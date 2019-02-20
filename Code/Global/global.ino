@@ -1,15 +1,9 @@
-#define SIZE 12
-#define JUNIOR_SIZE 8
-int buttonPins[SIZE] = {22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44};
-int ledPins[SIZE] =    {23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45};
+/*
+   global
+   This is the main program.
 
-int juniorPins[JUNIOR_SIZE] = {22, 24, 26, 28, 30, 32, 42, 44};
-
-
-int getRandom(int pins[], int size) {
-  return pins[random(0, size + 1)];
-}
-
+   @author Filippo Finke
+*/
 
 void waitUser() {
   bool state = false;
@@ -25,7 +19,7 @@ void waitUser() {
     }
     counter++;
     digitalWrite(45, HIGH);
-    state = !digitalRead(44);
+    state = isPressed(44);
   }
   resetLeds();
   bool ls = LOW;
@@ -36,26 +30,6 @@ void waitUser() {
     delay(500);
   }
   resetLeds();
-}
-
-void resetLeds() {
-  for (int i = 0; i < SIZE; i++)
-  {
-    digitalWrite(ledPins[i], LOW);
-  }
-}
-
-bool isPressed(int pin)
-{
-  return !digitalRead(pin);
-}
-
-void pinSetup() {
-  for (int i = 0; i < SIZE; i++)
-  {
-    pinMode(ledPins[i], OUTPUT);
-    pinMode(buttonPins[i], INPUT);
-  }
 }
 
 void cumulative(long duration, bool senior) {
