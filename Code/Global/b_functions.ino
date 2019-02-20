@@ -9,6 +9,26 @@ int getRandom(int pins[], int size) {
   return pins[random(0, size + 1)];
 }
 
+/*
+  |    0    |  22 |
+  |    1    |  24 |
+  |    2    |  26 |
+  |    3    |  28 |
+  |    4    |  30 |
+  |    5    |  32 |
+  |    6    |  34 |
+  |    7    |  36 |
+  |    8    |  38 |
+  |    9    |  40 |
+  |    #    |  42 |
+  |    @    |  44 |
+*/
+
+int getLabel(int pin)
+{
+  return (pin - 22) / 2;
+}
+
 void resetLeds() {
   for (int i = 0; i < SIZE; i++)
   {

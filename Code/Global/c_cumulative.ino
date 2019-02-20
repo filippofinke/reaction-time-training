@@ -1,38 +1,8 @@
 /*
-   global
-   This is the main program.
+   cumulative
 
    @author Filippo Finke
 */
-#include <Wire.h>
-
-void waitUser() {
-  bool state = false;
-  int counter = 0;
-  while (!state)
-  {
-    if (counter >= 1000)
-    {
-      counter = 0;
-      int ledPin = getRandom(ledPins, SIZE);
-      bool ledState = digitalRead(ledPin);
-      digitalWrite(ledPin, !ledState);
-    }
-    counter++;
-    digitalWrite(45, HIGH);
-    state = isPressed(44);
-  }
-  resetLeds();
-  bool ls = LOW;
-  for (int i = 0; i < 3; i++)
-  {
-    ls = !ls;
-    digitalWrite(45, ls);
-    delay(500);
-  }
-  resetLeds();
-}
-
 void cumulative(int32_t duration, bool senior) {
   int32_t start = millis();
   int32_t reactionTime = 0;
@@ -89,18 +59,4 @@ void cumulative(int32_t duration, bool senior) {
   }
   Serial.print("Fine modalità! Punteggio: ");
   Serial.println(pressedButtons);
-}
-
-void setup() {
-  Wire.begin();
-  Serial.begin(9600);
-  pinSetup();
-  Serial.println("BATAK 2.0 AVVIATO!");
-}
-
-void loop() {
-  waitUser();
-  Serial.println("AVVIO PROGRAMMA");
-  cumulative(10000, false);
-  Serial.println("HO FINITO");
 }
