@@ -3,11 +3,14 @@
 
    @author Filippo Finke
 */
-void cumulative(int32_t duration, bool senior) {
-  int32_t start = millis();
-  int32_t reactionTime = 0;
-  int32_t time = 0;
-  int32_t currentPin;
+void cumulative(long duration, boolean senior) {
+  Serial.print("DURATA ");
+  Serial.println(duration);
+  Serial.println(senior);
+  long start = millis();
+  long reactionTime = 0;
+  long time = 0;
+  int currentPin;
   if (senior)
   {
     currentPin = getRandom(buttonPins, SIZE);
@@ -23,7 +26,7 @@ void cumulative(int32_t duration, bool senior) {
   {
     time = (millis() - start);
     Wire.beginTransmission(8);
-    int32_t dec = time / 100;
+    long dec = time / 100;
     byte times[5];
     times[0] = 0;
     times[1] = (dec >> 24) & 0xFF;
@@ -40,6 +43,15 @@ void cumulative(int32_t duration, bool senior) {
     if (isPressed(currentPin))
     {
       pressedButtons++;
+      Wire.beginTransmission(8);
+      byte times[5];
+      times[0] = 1;
+      times[1] = (pressedButtons >> 24) & 0xFF;
+      times[2] = (pressedButtons >> 16) & 0xFF;
+      times[3] = (pressedButtons >> 8) & 0xFF;
+      times[4] = pressedButtons & 0xFF;
+      Wire.write(times,5);
+      Wire.endTransmission();
       Serial.print("Premuto: ");
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
