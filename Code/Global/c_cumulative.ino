@@ -25,16 +25,7 @@ void cumulative(long duration, boolean senior) {
   while (time <= duration)
   {
     time = (millis() - start);
-    Wire.beginTransmission(8);
-    long dec = time / 100;
-    byte times[5];
-    times[0] = 0;
-    times[1] = (dec >> 24) & 0xFF;
-    times[2] = (dec >> 16) & 0xFF;
-    times[3] = (dec >> 8) & 0xFF;
-    times[4] = dec & 0xFF;
-    Wire.write(times,5);
-    Wire.endTransmission();
+    sendData(0, time / 100);
     if (time % 1000 == 0)
     {
       Serial.print("Tempo rimanente: ");
@@ -43,15 +34,7 @@ void cumulative(long duration, boolean senior) {
     if (isPressed(currentPin))
     {
       pressedButtons++;
-      Wire.beginTransmission(8);
-      byte times[5];
-      times[0] = 1;
-      times[1] = (pressedButtons >> 24) & 0xFF;
-      times[2] = (pressedButtons >> 16) & 0xFF;
-      times[3] = (pressedButtons >> 8) & 0xFF;
-      times[4] = pressedButtons & 0xFF;
-      Wire.write(times,5);
-      Wire.endTransmission();
+      sendData(1, pressedButtons);
       Serial.print("Premuto: ");
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
