@@ -3,13 +3,46 @@
 
    @author Filippo Finke
 */
+void rush(long duration, int maxbuttons) {
+  Serial.print("DURATA ");
+  Serial.println(duration);
+  Serial.print("MAXBUTTONS: ");
+  Serial.println(maxbuttons);
+  long start = millis();
+  long elapsed = 0;
+  int pressedButtons = 0;
+
+  int currentPin = getRandom(buttonPins, SIZE);
+  digitalWrite(currentPin + 1, HIGH);
+
+  
+  while(elapsed <= duration && pressedButtons < maxbuttons)
+  {
+    elapsed = (millis() - start); 
+    sendData(0, elapsed / 100);
+    if (isPressed(currentPin))
+    {
+      pressedButtons++;
+      sendData(1, pressedButtons);
+      Serial.print("Premuto: ");
+      Serial.println(currentPin);
+      digitalWrite(currentPin + 1, LOW);
+      currentPin = getRandom(buttonPins, SIZE);
+      Serial.print("Accendo: ");
+      Serial.println(currentPin);
+      digitalWrite(currentPin + 1, HIGH);
+    }
+  }
+  Serial.print("Fine modalità! Punteggio: ");
+  Serial.println(pressedButtons);
+}
+
 void cumulative(long duration, boolean senior) {
   Serial.print("DURATA ");
   Serial.println(duration);
   Serial.println(senior);
   long start = millis();
-  long reactionTime = 0;
-  long time = 0;
+  long elapsed = 0;
   int currentPin;
   if (senior)
   {
@@ -22,15 +55,10 @@ void cumulative(long duration, boolean senior) {
   int pressedButtons = 0;
   digitalWrite(currentPin + 1, HIGH);
 
-  while (time <= duration)
+  while (elapsed <= duration)
   {
-    time = (millis() - start);
-    sendData(0, time / 100);
-    if (time % 1000 == 0)
-    {
-      Serial.print("Tempo rimanente: ");
-      Serial.println((duration - time) / 1000);
-    }
+    elapsed = (millis() - start);
+    sendData(0, elapsed / 100);
     if (isPressed(currentPin))
     {
       pressedButtons++;
@@ -46,7 +74,6 @@ void cumulative(long duration, boolean senior) {
       {
         currentPin = getRandom(juniorPins, JUNIOR_SIZE);
       }
-      reactionTime = millis();
       Serial.print("Accendo: ");
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
