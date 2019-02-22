@@ -65,7 +65,7 @@ void loop() {
   Serial.println(selected);
   if(selected == 1)
   {
-    cumulative(60000, false);
+    cumulative(60000, true);
   }
   else if(selected == 2)
   {
