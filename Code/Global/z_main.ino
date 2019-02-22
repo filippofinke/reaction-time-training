@@ -5,7 +5,7 @@
    @author Filippo Finke
 */
 
-String waitUser() {
+int waitUser() {
   bool state = false;
   int counter = 0;
   while (!state)
@@ -56,21 +56,20 @@ String waitUser() {
     delay(500);
   }
   resetLeds();
-  return selected;
+  return atol(selected.c_str());
 }
 
 void loop() {
-  String selected = waitUser();
+  int selected = waitUser();
   Serial.print("AVVIO ");
   Serial.println(selected);
-  if(selected == "1")
+  if(selected == 1)
   {
-    cumulative(10000, false);
+    cumulative(60000, false);
   }
-  else if(selected == "2")
+  else if(selected == 2)
   {
-    long duration = 300000;
-    cumulative(duration, true);
+    cumulative(300000, true);
   }
   Serial.println("HO FINITO");
 }
