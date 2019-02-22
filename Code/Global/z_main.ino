@@ -71,5 +71,9 @@ void loop() {
   {
     cumulative(300000, true);
   }
+  else if(selected == 3)
+  {
+    rush(100000,2);
+  }
   Serial.println("HO FINITO");
 }
