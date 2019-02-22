@@ -29,6 +29,19 @@ int getLabel(int pin)
   return (pin - 22) / 2;
 }
 
+void sendData(byte type, long offset)
+{
+  Wire.beginTransmission(8);
+  byte times[5];
+  times[0] = type;
+  times[1] = (offset >> 24) & 0xFF;
+  times[2] = (offset >> 16) & 0xFF;
+  times[3] = (offset >> 8) & 0xFF;
+  times[4] = offset & 0xFF;
+  Wire.write(times,5);
+  Wire.endTransmission();
+}
+
 void resetLeds() {
   for (int i = 0; i < SIZE; i++)
   {
