@@ -20,8 +20,8 @@ void setup()
   int segB = 8; //Pin 7 on my 4 digit display
   int segC = 2; //Pin 4 on my 4 digit display
   int segD = 5; //Pin 2 on my 4 digit display
-  int segE = 7; //Pin 1 on my 4 digit display
-  int segF = 4; //Pin 10 on my 4 digit display
+  int segE = 4; //Pin 1 on my 4 digit display
+  int segF = 7; //Pin 10 on my 4 digit display
   int segG = 3; //Pin 5 on my 4 digit display
   int segDP= 5; //Pin 3 on my 4 digit display
 
@@ -32,9 +32,15 @@ void setup()
   sevenSeg.SetBrightness(100);
 }
 
+int x = 0;
 void loop()
 {
   char tempString[10]; 
   sprintf(tempString, "%04d", deciSecond);
   sevenSeg.DisplayString(tempString, 3);
+  x++;
+  if(x % 10000)
+  {
+   deciSecond++;
+  }
 }
