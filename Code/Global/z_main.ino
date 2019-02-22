@@ -65,11 +65,12 @@ void loop() {
   Serial.println(selected);
   if(selected == "1")
   {
-    cumulative(10 * 1000, false);
+    cumulative(10000, false);
   }
   else if(selected == "2")
   {
-    cumulative(300 * 1000, false);
+    long duration = 300000;
+    cumulative(duration, true);
   }
   Serial.println("HO FINITO");
 }
