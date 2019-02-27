@@ -74,6 +74,28 @@ void loop() {
   else if(selected == 3)
   {
     rush(100000,2);
+  } 
+  else if(selected == 4)
+  {
+    angularStretching(100);
   }
+  /*else if(selected == 5)
+  {}
+  else if(selected == 6)
+  {}*/
+  else if(selected == 7)
+  {
+    temporized();
+  }
+  else if(selected == 8)
+  {
+    for(int i = 0; i < 4; i++)
+    {
+      Serial.print("GIOCATORE: ");
+      Serial.println(i + 1);
+      cumulative(30000, true);
+    }
+  }
+  
   Serial.println("HO FINITO");
 }
