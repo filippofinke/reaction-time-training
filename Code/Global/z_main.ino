@@ -1,5 +1,5 @@
 /*
-   global
+   z_ main
    This is the main program.
 
    @author Filippo Finke

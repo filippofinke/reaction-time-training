@@ -1,5 +1,5 @@
 /*
-   c_cumulative
+   c_programs
 
    @author Filippo Finke
 */
