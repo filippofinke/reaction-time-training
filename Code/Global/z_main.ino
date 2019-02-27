@@ -94,6 +94,12 @@ void loop() {
       Serial.print("GIOCATORE: ");
       Serial.println(i + 1);
       cumulative(30000, true);
+      long start = millis();
+      while(millis() - start <= 5000)
+      {
+        long elapsed = millis() - start;
+        sendData(0, elapsed / 100);
+      }
     }
   }
   

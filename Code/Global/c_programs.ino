@@ -15,7 +15,7 @@ void temporized() {
   int currentPin = getRandom(buttonPins, SIZE);
   digitalWrite(currentPin + 1, HIGH);
   
-  while(pressedButtons <= 50)
+  while(pressedButtons < 50)
   {
     elapsed = millis() - startButton; 
     sendData(0, elapsed / 100);
@@ -52,7 +52,7 @@ void temporized() {
       }
       if(isPressed(pin))
       {
-        timeout -= 50;
+        timeout -= 5;
         Serial.print("Hai sbagliato, nuovo timeout: ");
         Serial.println(timeout);
       }
@@ -113,7 +113,11 @@ void angularStretching(int maxbuttons) {
       }
       if(isPressed(pin))
       {
-        timeout -= 50;
+        timeout -= 5;
+        if(timeout < 0)
+        {
+          timeout = 0;
+        }
         Serial.print("Hai sbagliato, nuovo timeout: ");
         Serial.println(timeout);
       }
