@@ -1,5 +1,5 @@
 /*
-   config
+   a_config
    Configuration file for the main program.
 
    @author Filippo Finke

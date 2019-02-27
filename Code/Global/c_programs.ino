@@ -1,5 +1,5 @@
 /*
-   cumulative
+   c_cumulative
 
    @author Filippo Finke
 */

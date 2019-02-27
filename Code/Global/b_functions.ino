@@ -1,5 +1,5 @@
 /*
-   functions
+   b_functions
    This file contains all the functions needed to the program to work correctly.
 
    @author Filippo Finke
