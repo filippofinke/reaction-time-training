@@ -15,5 +15,7 @@
 |    #    |  42 |
 |    @    |  44 |
 
+Buzzer1: 6
+Buzzer2: 7
 
 Arduino mega:  20 (SDA), 21 (SCL)
