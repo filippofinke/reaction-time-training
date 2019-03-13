@@ -29,7 +29,9 @@ int waitUser() {
     for(int i = 0; i < SIZE; i++)
     {
       int bpin = buttonPins[i];
-      if(isPressed(bpin) && bpin != 44)
+      bool lastState = getLastState(bpin);
+      bool currentState = isPressed(bpin);
+      if(currentState == HIGH && currentState != lastState && bpin != 44)
       {
         digitalWrite(bpin + 1, HIGH);
         if(bpin == 42)
@@ -44,7 +46,7 @@ int waitUser() {
         }
       }
     }
-    delay(100);
+    delay(50);
   }
   resetLeds();
   Serial.println(selected);
@@ -59,7 +61,8 @@ int waitUser() {
   return atol(selected.c_str());
 }
 
-void loop() {
+void loop() {  
+  resetButtonsState();
   int selected = waitUser();
   Serial.print("AVVIO ");
   Serial.println(selected);
