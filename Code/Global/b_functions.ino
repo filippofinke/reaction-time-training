@@ -49,9 +49,31 @@ void resetLeds() {
   }
 }
 
+void resetButtonsState()
+{
+  for(int i = 0; i < SIZE; i++)
+  {
+    buttonStatus[i] = false;
+  }
+}
+
+bool getLastState(int pin) 
+{
+  int index = getLabel(pin);
+  return buttonStatus[index];
+}
+
+void setLastState(int pin, bool state)
+{
+  int index = getLabel(pin);
+  buttonStatus[index] = state;
+}
+
 bool isPressed(int pin)
 {
-  return !digitalRead(pin);
+  bool state = !digitalRead(pin);
+  setLastState(pin, state);
+  return state;
 }
 
 void pinSetup() {
