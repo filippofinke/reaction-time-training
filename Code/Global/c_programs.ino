@@ -30,7 +30,9 @@ void temporized() {
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
-    if (isPressed(currentPin))
+    bool presslastState = getLastState(currentPin);
+    bool presscurrentState = isPressed(currentPin);
+    if (presslastState == HIGH && presslastState != presscurrentState)
     {
       pressedButtons++;
       sendData(1, pressedButtons);
@@ -50,9 +52,15 @@ void temporized() {
       {
         continue;
       }
-      if(isPressed(pin))
+      bool lastState = getLastState(pin);
+      bool currentState = isPressed(pin);
+      if(currentState == HIGH && currentState != lastState)
       {
-        timeout -= 5;
+        timeout -= 100;
+        if(timeout < 200)
+        {
+          timeout = 200;
+        }
         Serial.print("Hai sbagliato, nuovo timeout: ");
         Serial.println(timeout);
       }
@@ -91,7 +99,9 @@ void angularStretching(int maxbuttons) {
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
-    if (isPressed(currentPin))
+    bool presslastState = getLastState(currentPin);
+    bool presscurrentState = isPressed(currentPin);
+    if (presslastState == HIGH && presslastState != presscurrentState)
     {
       leftButtons--;
       sendData(1, leftButtons);
@@ -111,12 +121,14 @@ void angularStretching(int maxbuttons) {
       {
         continue;
       }
-      if(isPressed(pin))
+      bool lastState = getLastState(pin);
+      bool currentState = isPressed(pin);
+      if(currentState == HIGH && currentState != lastState)
       {
-        timeout -= 5;
-        if(timeout < 0)
+        timeout -= 100;
+        if(timeout < 200)
         {
-          timeout = 0;
+          timeout = 200;
         }
         Serial.print("Hai sbagliato, nuovo timeout: ");
         Serial.println(timeout);
@@ -143,7 +155,9 @@ void rush(long duration, int maxbuttons) {
   {
     elapsed = (millis() - start); 
     sendData(0, elapsed / 100);
-    if (isPressed(currentPin))
+    bool presslastState = getLastState(currentPin);
+    bool presscurrentState = isPressed(currentPin);
+    if (presslastState == HIGH && presslastState != presscurrentState)
     {
       pressedButtons++;
       sendData(1, pressedButtons);
@@ -182,7 +196,9 @@ void cumulative(long duration, boolean senior) {
   {
     elapsed = (millis() - start);
     sendData(0, elapsed / 100);
-    if (isPressed(currentPin))
+    bool presslastState = getLastState(currentPin);
+    bool presscurrentState = isPressed(currentPin);
+    if (presslastState == HIGH && presslastState != presscurrentState)
     {
       pressedButtons++;
       sendData(1, pressedButtons);
