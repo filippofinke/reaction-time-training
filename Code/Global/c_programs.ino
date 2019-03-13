@@ -221,3 +221,86 @@ void cumulative(long duration, boolean senior) {
   Serial.print("Fine modalità! Punteggio: ");
   Serial.println(pressedButtons);
 }
+
+void beepTest() {
+  int levels = 10;
+  int buttons = 30;
+  int timeout = 1400;
+
+  long elapsed = 0;
+  long start = millis();
+  long startButton = millis();
+  int pressedButtons = 0;
+  int errors = 0;
+  int currentPin = getRandom(buttonPins, SIZE);
+  digitalWrite(currentPin + 1, HIGH);
+  for(int l = 0; l < levels && errors <= 2; l++)
+  {
+    Serial.print("Livello: ");
+    Serial.println(l + 1);
+    while(pressedButtons <= buttons * l && errors <= 2)
+    {
+      elapsed = (millis() - start); 
+      sendData(0, elapsed / 100);
+      if(millis() - startButton > timeout)
+      {
+        Serial.print("Timeout: ");
+        Serial.println(currentPin);
+        digitalWrite(currentPin + 1, LOW);
+        currentPin = getRandom(buttonPins, SIZE);
+        errors++;
+        for(int i = 0; i < errors; i++)
+        {
+          tone(buzzerPin, 2000);
+          delay(100);
+          noTone(buzzerPin);
+          delay(50);
+        }
+        startButton = millis();
+        Serial.print("Accendo: ");
+        Serial.println(currentPin);
+        digitalWrite(currentPin + 1, HIGH);
+      }
+      bool presslastState = getLastState(currentPin);
+      bool presscurrentState = isPressed(currentPin);
+      if (presslastState == HIGH && presslastState != presscurrentState)
+      {
+        errors = 0;
+        pressedButtons++;
+        sendData(1, pressedButtons);
+        Serial.print("Premuto: ");
+        Serial.println(currentPin);
+        digitalWrite(currentPin + 1, LOW);
+        currentPin = getRandom(buttonPins, SIZE);
+        startButton = millis();
+        Serial.print("Accendo: ");
+        Serial.println(currentPin);
+        digitalWrite(currentPin + 1, HIGH);
+      }
+      for(int i = 0; i < SIZE; i++)
+      {
+        int pin = buttonPins[i];
+        if(pin == currentPin)
+        {
+          continue;
+        }
+        bool lastState = getLastState(pin);
+        bool currentState = isPressed(pin);
+        if(currentState == HIGH && currentState != lastState)
+        {
+          errors++;
+          for(int i = 0; i < errors; i++)
+          {
+            tone(buzzerPin, 2000);
+            delay(100);
+            noTone(buzzerPin);
+            delay(50);
+          }
+        }
+      }
+    }
+  }
+  Serial.print("Fine modalità! Punteggio: ");
+  Serial.println(pressedButtons);
+  
+}
