@@ -83,9 +83,11 @@ void loop() {
     angularStretching(100);
   }
   /*else if(selected == 5)
-  {}
-  else if(selected == 6)
   {}*/
+  else if(selected == 6)
+  {
+    beepTest();
+  }
   else if(selected == 7)
   {
     temporized();
