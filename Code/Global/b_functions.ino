@@ -42,6 +42,12 @@ void sendData(byte type, long offset)
   Wire.endTransmission();
 }
 
+void resets7Segments()
+{
+  sendData(0, 0);
+  sendData(1, 0);
+}
+
 void resetLeds() {
   for (int i = 0; i < SIZE; i++)
   {
@@ -74,12 +80,4 @@ bool isPressed(int pin)
   bool state = !digitalRead(pin);
   setLastState(pin, state);
   return state;
-}
-
-void pinSetup() {
-  for (int i = 0; i < SIZE; i++)
-  {
-    pinMode(ledPins[i], OUTPUT);
-    pinMode(buttonPins[i], INPUT);
-  }
 }
