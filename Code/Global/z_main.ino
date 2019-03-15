@@ -61,9 +61,11 @@ int waitUser() {
   return atol(selected.c_str());
 }
 
-void loop() {  
-  resetButtonsState();
+void loop() { 
+
   int selected = waitUser();
+  resetButtonsState();
+  resets7Segments();
   Serial.print("AVVIO ");
   Serial.println(selected);
   if(selected == 1)
@@ -76,11 +78,11 @@ void loop() {
   }
   else if(selected == 3)
   {
-    rush(100000,2);
+    rush(100000, 50, true);
   } 
   else if(selected == 4)
   {
-    angularStretching(100);
+    angularStretching(100, 4);
   }
   /*else if(selected == 5)
   {}*/
@@ -90,7 +92,7 @@ void loop() {
   }
   else if(selected == 7)
   {
-    temporized();
+    temporized(50, true);
   }
   else if(selected == 8)
   {
@@ -106,6 +108,48 @@ void loop() {
         sendData(0, elapsed / 100);
       }
     }
+  }
+  else if(selected == 9)
+  {
+    mathsum();
+  }
+  /*else if(selected == 10)
+  {}*/
+  else if(selected == 11)
+  {
+    angularStretching(25, 11);
+  }
+  else if(selected == 12)
+  {
+    angularStretching(50, 12);
+  }
+  else if(selected == 13) 
+  {
+    temporized(25, false);
+  }
+  else if(selected == 14) 
+  {
+    temporized(50, false);
+  }
+  else if(selected == 15)
+  {
+    cumulative(30000, false);
+  }
+  else if(selected == 16)
+  {
+    cumulative(60000, false);
+  }
+  else if(selected == 17)
+  {
+    rush(100000, 25, false);
+  }
+  else if(selected == 18)
+  {
+    rush(100000, 50, false);
+  }
+  else if(selected == 19)
+  {
+    cumulative(180000, false);
   }
   
   Serial.println("HO FINITO");
