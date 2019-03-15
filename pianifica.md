@@ -1,11 +1,5 @@
-- Cumulativo 60 secondi, senior
-- Maratona (5 minuti) senior
-- Corsa 50 pulsanti, senior
-- Stretching angolare, 100 pulsanti, senior
+### Da fare:
 - Tiro a vuoto – pulsanti 1 secondo, senior
-- Test di Léger o Beep test, senior
-- 50 pulsanti temporizzati, 1 secondo per pulsante, senior
-- Staffetta 4 giocatori (tempo totale 120 secondi), senior
 - Reazione, somma aritmetica
 - Tabelline, test di velocità
 - Stretching angolare, 25 pulsanti
@@ -22,3 +16,17 @@
 - Anti- flash test
 - Reazione veloce, 10 schemi
 - Errori e problemi fa gestire
+
+### In corso
+- Test di Léger o Beep test, senior
+   - Mancanza: Implementare il display
+
+### Fatti da testare
+- Cumulativo 60 secondi, senior
+- Maratona (5 minuti) senior
+- Corsa 50 pulsanti, senior
+- Stretching angolare, 100 pulsanti, senior
+- 50 pulsanti temporizzati, 1 secondo per pulsante, senior
+- Staffetta 4 giocatori (tempo totale 120 secondi), senior
+
+### Testati
