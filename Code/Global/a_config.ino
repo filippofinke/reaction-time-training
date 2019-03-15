@@ -16,6 +16,11 @@ int buzzerPin = 6;
 void setup() {
   Wire.begin();
   Serial.begin(9600);
-  pinSetup();
+  pinMode(buzzerPin, OUTPUT);
+  for (int i = 0; i < SIZE; i++)
+  {
+    pinMode(ledPins[i], OUTPUT);
+    pinMode(buttonPins[i], INPUT);
+  }
   Serial.println("BATAK 2.0 AVVIATO!");
 }
