@@ -62,7 +62,11 @@ int waitUser() {
 }
 
 void loop() { 
-
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Selezione");
+  lcd.setCursor(0,1);
+  lcd.print("Programma");
   int selected = waitUser();
   resetButtonsState();
   resets7Segments();
