@@ -418,6 +418,11 @@ void mathsum() {
         {
           Serial.println("Risultato corretto Passo al prossimo!");
           points++;
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Punti (MAX 8)");
+          lcd.setCursor(0,1);
+          lcd.print(points);
           waiting = false;
         }
       }

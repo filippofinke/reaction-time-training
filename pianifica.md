@@ -11,8 +11,6 @@
 - Errori e problemi fa gestire
 
 ### In corso
-- Reazione, somma aritmetica
-  - Mancanza: Display
 - Stretching angolare, 25 pulsanti
   - Fix display
 - Stretching angolare, 50 pulsanti
@@ -33,6 +31,7 @@
 - Corsa 50 pulsanti, junior
 - Maratona (3 minuti) junior
 - Test di Léger o Beep test, senior
+- Reazione, somma aritmetica
 
 
 ### Testati
