@@ -281,6 +281,11 @@ void beepTest() {
   {
     Serial.print("Livello: ");
     Serial.println(l + 1);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Livello");
+    lcd.setCursor(0,1);
+    lcd.print(l + 1);
     while(pressedButtons <= buttons * l && errors <= 2)
     {
       elapsed = (millis() - start); 

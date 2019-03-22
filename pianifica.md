@@ -11,8 +11,6 @@
 - Errori e problemi fa gestire
 
 ### In corso
-- Test di Léger o Beep test, senior
-   - Mancanza: Implementare il display
 - Reazione, somma aritmetica
   - Mancanza: Display
 - Stretching angolare, 25 pulsanti
@@ -34,5 +32,7 @@
 - Corsa 25 pulsanti, junior
 - Corsa 50 pulsanti, junior
 - Maratona (3 minuti) junior
+- Test di Léger o Beep test, senior
+
 
 ### Testati
