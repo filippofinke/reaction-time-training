@@ -20,10 +20,7 @@
 8- Staffetta 4 giocatori (tempo totale 120 secondi), senior
 9- Reazione, somma aritmetica
 
-17- Corsa 25 pulsanti, junior
-- Corsa 50 pulsanti, junior
-- Maratona (3 minuti) junior
-- Test di Léger o Beep test, senior
+6- Test di Léger o Beep test, senior
 
 
 ### Testati
@@ -31,8 +28,18 @@
 2- Maratona (5 minuti) senior
 3- Corsa 50 pulsanti, senior
 4- Stretching angolare, 100 pulsanti, senior
+5- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 7- 50 pulsanti temporizzati, 1 secondo per pulsante, senior
+
+
+
+
+
 13- 25 pulsanti temporizzati, 1 secondo per pulsante, junior
 14- 50 pulsanti temporizzati, 1 secondo per pulsante, junior
 15- Cumulativo 30 secondi, junior
 16- Cumulativo 60 secondi, junior
+17- Corsa 25 pulsanti, junior
+18- Corsa 50 pulsanti, junior
+19- Maratona (3 minuti) junior
