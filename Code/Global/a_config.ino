@@ -15,7 +15,7 @@ int juniorPins[JUNIOR_SIZE] = {22, 24, 26, 28, 30, 32, 42, 44};
 bool buttonStatus[SIZE] = {false, false, false, false, false, false, false, false, false, false, false, false};
 int buzzerPin = 6;
 
-LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE); // 
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 
 void setup() {
@@ -24,9 +24,6 @@ void setup() {
 
   lcd.begin(16,2);
   lcd.backlight();
-
-  lcd.setCursor(0,0); 
-  lcd.print("BATAK 2.0");
   
   pinMode(buzzerPin, OUTPUT);
   for (int i = 0; i < SIZE; i++)
