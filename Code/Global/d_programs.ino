@@ -281,11 +281,7 @@ void beepTest() {
   {
     Serial.print("Livello: ");
     Serial.println(l + 1);
-    lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print("Livello");
-    lcd.setCursor(0,1);
-    lcd.print(l + 1);
+    setLcdText("Livello:",String(l+1));
     while(pressedButtons <= buttons * l && errors <= 2)
     {
       elapsed = (millis() - start); 
@@ -418,11 +414,7 @@ void mathsum() {
         {
           Serial.println("Risultato corretto Passo al prossimo!");
           points++;
-          lcd.clear();
-          lcd.setCursor(0,0);
-          lcd.print("Punti (MAX 8)");
-          lcd.setCursor(0,1);
-          lcd.print(points);
+          setLcdText("Punti (MAX 8)", String(points));
           waiting = false;
         }
       }
