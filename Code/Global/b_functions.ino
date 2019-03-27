@@ -9,6 +9,15 @@ int getRandom(int pins[], int size) {
   return pins[random(0, size + 1)];
 }
 
+void setLcdText(String firstLine, String secondLine)
+{
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print(firstLine);
+  lcd.setCursor(0,1);
+  lcd.print(secondLine);
+}
+
 /*
   |    0    |  22 |
   |    1    |  24 |
