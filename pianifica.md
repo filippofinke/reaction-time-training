@@ -18,15 +18,12 @@
 
 ### Fatti da testare
 8- Staffetta 4 giocatori (tempo totale 120 secondi), senior
-9- 25 pulsanti temporizzati, 1 secondo per pulsante, junior
-10- 50 pulsanti temporizzati, 1 secondo per pulsante, junior
-11- Cumulativo 30 secondi, junior
-12- Cumulativo 60 secondi, junior
-13- Corsa 25 pulsanti, junior
-14- Corsa 50 pulsanti, junior
-15- Maratona (3 minuti) junior
-16- Test di Léger o Beep test, senior
-17- Reazione, somma aritmetica
+9- Reazione, somma aritmetica
+
+17- Corsa 25 pulsanti, junior
+- Corsa 50 pulsanti, junior
+- Maratona (3 minuti) junior
+- Test di Léger o Beep test, senior
 
 
 ### Testati
@@ -35,3 +32,7 @@
 3- Corsa 50 pulsanti, senior
 4- Stretching angolare, 100 pulsanti, senior
 7- 50 pulsanti temporizzati, 1 secondo per pulsante, senior
+13- 25 pulsanti temporizzati, 1 secondo per pulsante, junior
+14- 50 pulsanti temporizzati, 1 secondo per pulsante, junior
+15- Cumulativo 30 secondi, junior
+16- Cumulativo 60 secondi, junior
