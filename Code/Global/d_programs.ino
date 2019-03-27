@@ -264,10 +264,10 @@ void cumulative(long duration, boolean senior) {
   Serial.print("Fine modalità! Punteggio: ");
   Serial.println(pressedButtons);
 }
-
+ 
 void beepTest() {
   int levels = 10;
-  int buttons = 30;
+  int buttons = 2;
   int timeout = 1400;
 
   long elapsed = 0;

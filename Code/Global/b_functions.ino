@@ -6,7 +6,12 @@
 */
 
 int getRandom(int pins[], int size) {
-  return pins[random(0, size + 1)];
+  int pin = pins[random(0, size + 1)];
+  if(pin >= 22 && pin <= 45)
+  {
+    return pin;
+  }
+  return getRandom(pins, size);
 }
 
 void setLcdText(String firstLine, String secondLine)
