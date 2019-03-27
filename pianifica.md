@@ -11,28 +11,27 @@
 - Errori e problemi fa gestire
 
 ### In corso
-- Test di Léger o Beep test, senior
-   - Mancanza: Implementare il display
-- Reazione, somma aritmetica
-  - Mancanza: Display
 - Stretching angolare, 25 pulsanti
   - Fix display
 - Stretching angolare, 50 pulsanti
   - Fix display
 
 ### Fatti da testare
-- Cumulativo 60 secondi, senior
-- Maratona (5 minuti) senior
-- Corsa 50 pulsanti, senior
-- Stretching angolare, 100 pulsanti, senior
-- 50 pulsanti temporizzati, 1 secondo per pulsante, senior
-- Staffetta 4 giocatori (tempo totale 120 secondi), senior
-- 25 pulsanti temporizzati, 1 secondo per pulsante, junior
-- 50 pulsanti temporizzati, 1 secondo per pulsante, junior
-- Cumulativo 30 secondi, junior
-- Cumulativo 60 secondi, junior
-- Corsa 25 pulsanti, junior
-- Corsa 50 pulsanti, junior
-- Maratona (3 minuti) junior
+8. Staffetta 4 giocatori (tempo totale 120 secondi), senior
+9. Reazione, somma aritmetica
+6. Test di Léger o Beep test, senior
+
 
 ### Testati
+1. Cumulativo 60 secondi, senior
+2. Maratona (5 minuti) senior
+3. Corsa 50 pulsanti, senior
+4. Stretching angolare, 100 pulsanti, senior
+7. 50 pulsanti temporizzati, 1 secondo per pulsante, senior
+13. 25 pulsanti temporizzati, 1 secondo per pulsante, junior
+14. 50 pulsanti temporizzati, 1 secondo per pulsante, junior
+15. Cumulativo 30 secondi, junior
+16. Cumulativo 60 secondi, junior
+17. Corsa 25 pulsanti, junior
+18. Corsa 50 pulsanti, junior
+19. Maratona (3 minuti) junior

@@ -22,6 +22,7 @@ int waitUser() {
     state = isPressed(44);
   }
   resetLeds();
+  setLcdText("Premi il numero","del programma");
   bool waiting = true;
   String selected = "";
   int index = 0;
@@ -43,31 +44,31 @@ int waitUser() {
           selected = selected + getLabel(bpin);
           Serial.println(selected);
           index++;
+          setLcdText("Selezionato: " + selected,"Per uscire #");
         }
       }
     }
     delay(50);
   }
   resetLeds();
-  Serial.println(selected);
   bool ls = LOW;
   for (int i = 0; i < 3; i++)
   {
     ls = !ls;
     digitalWrite(45, ls);
     delay(500);
+    setLcdText("Avvio in", String(((3 * 500) - (i * 500))/1000) + " secondi");
   }
   resetLeds();
   return atol(selected.c_str());
 }
 
 void loop() { 
-
+  setLcdText("In attesa...","Premi @");
   int selected = waitUser();
+  setLcdText("Programma","N: " + String(selected));
   resetButtonsState();
   resets7Segments();
-  Serial.print("AVVIO ");
-  Serial.println(selected);
   if(selected == 1)
   {
     cumulative(60000, true);

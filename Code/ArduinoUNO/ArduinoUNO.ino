@@ -48,9 +48,9 @@ void loop() {
     matrix.writeDigitNum(4, tempo % 10, false);
     matrix.writeDisplay();
     updateNeeded = false;
-    Serial.print("TEMPO :");
+    Serial.print("Seg1 :");
     Serial.println(tempo);
-    Serial.print("PUNTI: ");
+    Serial.print("Seg2: ");
     Serial.println(points);
   }
   char tempString[10]; 

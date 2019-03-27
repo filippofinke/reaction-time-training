@@ -264,10 +264,10 @@ void cumulative(long duration, boolean senior) {
   Serial.print("Fine modalità! Punteggio: ");
   Serial.println(pressedButtons);
 }
-
+ 
 void beepTest() {
   int levels = 10;
-  int buttons = 30;
+  int buttons = 2;
   int timeout = 1400;
 
   long elapsed = 0;
@@ -281,6 +281,7 @@ void beepTest() {
   {
     Serial.print("Livello: ");
     Serial.println(l + 1);
+    setLcdText("Livello:",String(l+1));
     while(pressedButtons <= buttons * l && errors <= 2)
     {
       elapsed = (millis() - start); 
@@ -413,6 +414,7 @@ void mathsum() {
         {
           Serial.println("Risultato corretto Passo al prossimo!");
           points++;
+          setLcdText("Punti (MAX 8)", String(points));
           waiting = false;
         }
       }
