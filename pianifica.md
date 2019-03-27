@@ -17,8 +17,6 @@
   - Fix display
 
 ### Fatti da testare
-- Cumulativo 60 secondi, senior
-- Maratona (5 minuti) senior
 - Corsa 50 pulsanti, senior
 - Stretching angolare, 100 pulsanti, senior
 - 50 pulsanti temporizzati, 1 secondo per pulsante, senior
@@ -35,3 +33,5 @@
 
 
 ### Testati
+- Cumulativo 60 secondi, senior 
+- Maratona (5 minuti) senior
