@@ -267,7 +267,7 @@ void cumulative(long duration, boolean senior) {
  
 void beepTest() {
   int levels = 10;
-  int buttons = 2;
+  int buttons = 10;
   int timeout = 1400;
 
   long elapsed = 0;
@@ -353,6 +353,7 @@ void mathsum() {
   bool waiting = true;
   int millisec = 0;
   int points = 0;
+  setLcdText("Tempo in s", "Scegli tra 2-9");
   while(waiting)
   {
     for(int i = 0; i < SIZE; i++)
@@ -378,6 +379,8 @@ void mathsum() {
       }
     }
   }
+  setLcdText("Tempo:" + String(millisec / 1000), "Inizio in 3 sec");
+  delay(3000);
   resetButtonsState();
   resetLeds();
   long startTime = 0;
@@ -392,6 +395,7 @@ void mathsum() {
       two = random(0,9);
       sum = one + two;
     }
+    setLcdText(String(one) + " + " + String(two) + " = ?",String(points) + "/8");
     Serial.print(one);
     Serial.print(" + ");
     Serial.print(two);
@@ -425,6 +429,8 @@ void mathsum() {
   Serial.println("/8");
   if(points == 8)
   {
+    setLcdText("Punteggio","massimo!");
     winSong();
   }
+  setLcdText("Finito", String(points) + "/8");
 }

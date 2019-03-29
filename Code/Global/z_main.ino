@@ -63,7 +63,7 @@ int waitUser() {
   return atol(selected.c_str());
 }
 
-void loop() { 
+void loop() {
   setLcdText("In attesa...","Premi @");
   int selected = waitUser();
   setLcdText("Programma","N: " + String(selected));
