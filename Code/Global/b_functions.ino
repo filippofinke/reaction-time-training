@@ -1,13 +1,13 @@
- /*
-   b_functions
-   This file contains all the functions needed to the program to work correctly.
+/*
+  b_functions
+  This file contains all the functions needed to the program to work correctly.
 
-   @author Filippo Finke
+  @author Filippo Finke
 */
 
 int getRandom(int pins[], int size) {
   int pin = pins[random(0, size + 1)];
-  if(pin >= 22 && pin <= 45)
+  if (pin >= 22 && pin <= 45)
   {
     return pin;
   }
@@ -17,9 +17,9 @@ int getRandom(int pins[], int size) {
 void setLcdText(String firstLine, String secondLine)
 {
   lcd.clear();
-  lcd.setCursor(0,0);
+  lcd.setCursor(0, 0);
   lcd.print(firstLine);
-  lcd.setCursor(0,1);
+  lcd.setCursor(0, 1);
   lcd.print(secondLine);
 }
 
@@ -52,7 +52,7 @@ void sendData(byte type, long offset)
   times[2] = (offset >> 16) & 0xFF;
   times[3] = (offset >> 8) & 0xFF;
   times[4] = offset & 0xFF;
-  Wire.write(times,5);
+  Wire.write(times, 5);
   Wire.endTransmission();
 }
 
@@ -71,13 +71,13 @@ void resetLeds() {
 
 void resetButtonsState()
 {
-  for(int i = 0; i < SIZE; i++)
+  for (int i = 0; i < SIZE; i++)
   {
     buttonStatus[i] = false;
   }
 }
 
-bool getLastState(int pin) 
+bool getLastState(int pin)
 {
   int index = getLabel(pin);
   return buttonStatus[index];

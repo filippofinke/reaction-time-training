@@ -22,9 +22,9 @@ void setup() {
   Wire.begin();
   Serial.begin(9600);
 
-  lcd.begin(16,2);
+  lcd.begin(16, 2);
   lcd.backlight();
-  
+
   pinMode(buzzerPin, OUTPUT);
   for (int i = 0; i < SIZE; i++)
   {

@@ -25,14 +25,14 @@ void beep(int note, int duration)
   noTone(buzzerPin);
 
 }
- 
+
 void winSong()
 {
   beep(a, 500);
-  beep(a, 500);    
+  beep(a, 500);
   beep(a, 500);
   beep(f, 350);
-  beep(cH, 150);  
+  beep(cH, 150);
   beep(a, 500);
   beep(f, 350);
   beep(cH, 150);

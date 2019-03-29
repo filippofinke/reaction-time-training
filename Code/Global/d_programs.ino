@@ -21,12 +21,12 @@ void temporized(int maxbuttons, boolean senior) {
     currentPin = getRandom(juniorPins, JUNIOR_SIZE);
   }
   digitalWrite(currentPin + 1, HIGH);
-  
-  while(pressedButtons < maxbuttons)
+
+  while (pressedButtons < maxbuttons)
   {
-    elapsed = millis() - startButton; 
+    elapsed = millis() - startButton;
     sendData(0, (timeout - elapsed) / 100);
-    if(elapsed > timeout)
+    if (elapsed > timeout)
     {
       Serial.print("Timeout: ");
       Serial.println(currentPin);
@@ -60,25 +60,25 @@ void temporized(int maxbuttons, boolean senior) {
       else
       {
         currentPin = getRandom(juniorPins, JUNIOR_SIZE);
-      }      
+      }
       startButton = millis();
       Serial.print("Accendo: ");
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
-    for(int i = 0; i < SIZE; i++)
+    for (int i = 0; i < SIZE; i++)
     {
       int pin = buttonPins[i];
-      if(pin == currentPin)
+      if (pin == currentPin)
       {
         continue;
       }
       bool lastState = getLastState(pin);
       bool currentState = isPressed(pin);
-      if(currentState == HIGH && currentState != lastState)
+      if (currentState == HIGH && currentState != lastState)
       {
         timeout -= 100;
-        if(timeout < 200)
+        if (timeout < 200)
         {
           timeout = 200;
         }
@@ -91,10 +91,10 @@ void temporized(int maxbuttons, boolean senior) {
 }
 
 void angularStretching(int maxbuttons, int program) {
-  #define ANGULAR_STRETCHING_SIZE 7
+#define ANGULAR_STRETCHING_SIZE 7
   int timeout = 1000;
-  
-  int angularPins[ANGULAR_STRETCHING_SIZE] = {22,42,24,30,32,38,40};
+
+  int angularPins[ANGULAR_STRETCHING_SIZE] = {22, 42, 24, 30, 32, 38, 40};
   Serial.print("MAXBUTTONS: ");
   Serial.println(maxbuttons);
   long start = millis();
@@ -104,15 +104,15 @@ void angularStretching(int maxbuttons, int program) {
 
   int currentPin = getRandom(angularPins, ANGULAR_STRETCHING_SIZE);
   digitalWrite(currentPin + 1, HIGH);
-  
-  while(leftButtons > 0)
+
+  while (leftButtons > 0)
   {
-    elapsed = (millis() - start); 
-    if(program == 4)
+    elapsed = (millis() - start);
+    if (program == 4)
     {
       sendData(0, elapsed / 100);
     }
-    if(millis() - startButton > timeout)
+    if (millis() - startButton > timeout)
     {
       Serial.print("Timeout: ");
       Serial.println(currentPin);
@@ -129,7 +129,7 @@ void angularStretching(int maxbuttons, int program) {
     {
       leftButtons--;
       sendData(1, leftButtons);
-      if(program != 4)
+      if (program != 4)
       {
         sendData(0, maxbuttons - leftButtons);
       }
@@ -142,19 +142,19 @@ void angularStretching(int maxbuttons, int program) {
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
-    for(int i = 0; i < SIZE; i++)
+    for (int i = 0; i < SIZE; i++)
     {
       int pin = buttonPins[i];
-      if(pin == currentPin)
+      if (pin == currentPin)
       {
         continue;
       }
       bool lastState = getLastState(pin);
       bool currentState = isPressed(pin);
-      if(currentState == HIGH && currentState != lastState)
+      if (currentState == HIGH && currentState != lastState)
       {
         timeout -= 100;
-        if(timeout < 200)
+        if (timeout < 200)
         {
           timeout = 200;
         }
@@ -183,13 +183,13 @@ void rush(long duration, int maxbuttons, boolean senior) {
   else
   {
     currentPin = getRandom(juniorPins, JUNIOR_SIZE);
-  }  
+  }
   digitalWrite(currentPin + 1, HIGH);
 
-  
-  while(elapsed <= duration && pressedButtons < maxbuttons)
+
+  while (elapsed <= duration && pressedButtons < maxbuttons)
   {
-    elapsed = (millis() - start); 
+    elapsed = (millis() - start);
     sendData(0, elapsed / 100);
     bool presslastState = getLastState(currentPin);
     bool presscurrentState = isPressed(currentPin);
@@ -207,7 +207,7 @@ void rush(long duration, int maxbuttons, boolean senior) {
       else
       {
         currentPin = getRandom(juniorPins, JUNIOR_SIZE);
-      }  
+      }
       Serial.print("Accendo: ");
       Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
@@ -264,7 +264,7 @@ void cumulative(long duration, boolean senior) {
   Serial.print("Fine modalità! Punteggio: ");
   Serial.println(pressedButtons);
 }
- 
+
 void beepTest() {
   int levels = 10;
   int buttons = 10;
@@ -277,23 +277,23 @@ void beepTest() {
   int errors = 0;
   int currentPin = getRandom(buttonPins, SIZE);
   digitalWrite(currentPin + 1, HIGH);
-  for(int l = 0; l < levels && errors <= 2; l++)
+  for (int l = 0; l < levels && errors <= 2; l++)
   {
     Serial.print("Livello: ");
     Serial.println(l + 1);
-    setLcdText("Livello:",String(l+1));
-    while(pressedButtons <= buttons * l && errors <= 2)
+    setLcdText("Livello:", String(l + 1));
+    while (pressedButtons <= buttons * l && errors <= 2)
     {
-      elapsed = (millis() - start); 
+      elapsed = (millis() - start);
       sendData(0, elapsed / 100);
-      if(millis() - startButton > timeout)
+      if (millis() - startButton > timeout)
       {
         Serial.print("Timeout: ");
         Serial.println(currentPin);
         digitalWrite(currentPin + 1, LOW);
         currentPin = getRandom(buttonPins, SIZE);
         errors++;
-        for(int i = 0; i < errors; i++)
+        for (int i = 0; i < errors; i++)
         {
           tone(buzzerPin, 2000);
           delay(100);
@@ -321,19 +321,19 @@ void beepTest() {
         Serial.println(currentPin);
         digitalWrite(currentPin + 1, HIGH);
       }
-      for(int i = 0; i < SIZE; i++)
+      for (int i = 0; i < SIZE; i++)
       {
         int pin = buttonPins[i];
-        if(pin == currentPin)
+        if (pin == currentPin)
         {
           continue;
         }
         bool lastState = getLastState(pin);
         bool currentState = isPressed(pin);
-        if(currentState == HIGH && currentState != lastState)
+        if (currentState == HIGH && currentState != lastState)
         {
           errors++;
-          for(int i = 0; i < errors; i++)
+          for (int i = 0; i < errors; i++)
           {
             tone(buzzerPin, 2000);
             delay(100);
@@ -349,23 +349,23 @@ void beepTest() {
 }
 
 void mathsum() {
-  
+
   bool waiting = true;
   int millisec = 0;
   int points = 0;
   setLcdText("Tempo in s", "Scegli tra 2-9");
-  while(waiting)
+  while (waiting)
   {
-    for(int i = 0; i < SIZE; i++)
+    for (int i = 0; i < SIZE; i++)
     {
       int bpin = buttonPins[i];
       bool lastState = getLastState(bpin);
       bool currentState = isPressed(bpin);
-      if(currentState == HIGH && currentState != lastState)
+      if (currentState == HIGH && currentState != lastState)
       {
         digitalWrite(bpin + 1, HIGH);
         int label = getLabel(bpin);
-        if(label >= 2 && label <= 9)
+        if (label >= 2 && label <= 9)
         {
           millisec = label * 1000;
           Serial.print("Ms:");
@@ -384,37 +384,37 @@ void mathsum() {
   resetButtonsState();
   resetLeds();
   long startTime = 0;
-  for(int i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++)
   {
     int sum = 10;
     int one = 0;
     int two = 0;
-    while(sum >= 10)
+    while (sum >= 10)
     {
-      one = random(0,9);
-      two = random(0,9);
+      one = random(0, 9);
+      two = random(0, 9);
       sum = one + two;
     }
-    setLcdText(String(one) + " + " + String(two) + " = ?",String(points) + "/8");
+    setLcdText(String(one) + " + " + String(two) + " = ?", String(points) + "/8");
     Serial.print(one);
     Serial.print(" + ");
     Serial.print(two);
     Serial.print(" = ");
     Serial.println(sum);
-    
+
     sendData(0, one);
     sendData(1, two);
-    
+
     startTime = millis();
     waiting = true;
-    while(millis() - startTime <= millisec && waiting)
+    while (millis() - startTime <= millisec && waiting)
     {
-      for(int x = 0; x < SIZE; x++)
+      for (int x = 0; x < SIZE; x++)
       {
         int bpin = buttonPins[x];
         bool lastState = getLastState(bpin);
         bool currentState = isPressed(bpin);
-        if(currentState == HIGH && currentState != lastState && getLabel(bpin) == sum)
+        if (currentState == HIGH && currentState != lastState && getLabel(bpin) == sum)
         {
           Serial.println("Risultato corretto Passo al prossimo!");
           points++;
@@ -427,9 +427,9 @@ void mathsum() {
   Serial.print("Punti: ");
   Serial.print(points);
   Serial.println("/8");
-  if(points == 8)
+  if (points == 8)
   {
-    setLcdText("Punteggio","massimo!");
+    setLcdText("Punteggio", "massimo!");
     winSong();
   }
   setLcdText("Finito", String(points) + "/8");
