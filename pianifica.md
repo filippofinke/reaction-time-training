@@ -8,13 +8,13 @@
 - Flash test, 5 schemi
 - Anti- flash test
 - Reazione veloce, 10 schemi
-- Errori e problemi fa gestire
 
 ### In corso
 - Stretching angolare, 25 pulsanti
   - Fix display
 - Stretching angolare, 50 pulsanti
   - Fix display
+- Errori e problemi fa gestire
 
 ### Fatti da testare
 8. Staffetta 4 giocatori (tempo totale 120 secondi), senior
