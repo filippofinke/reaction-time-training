@@ -152,6 +152,9 @@ void loop() {
   {
     cumulative(180000, false);
   }
-
+  else if (selected == 99)
+  {
+    systemCheck();
+  }
   Serial.println("HO FINITO");
 }

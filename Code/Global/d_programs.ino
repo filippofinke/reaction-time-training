@@ -4,6 +4,33 @@
    @author Filippo Finke
 */
 
+void systemCheck() {
+  setLcdText("Avvio procedura", "di test");
+  setLcdText("Test buzzer", "1 secondo");
+  tone(buzzerPin, 2000);
+  delay(1000);
+  noTone(buzzerPin);
+  for(int i = 0; i < SIZE; i++)
+  {
+    int pin = buttonPins[i];
+    String text = String(getLabel(pin));
+    if(text == 42)
+    {
+      text = "#";
+    }
+    else if(text == 44)
+    {
+      text = "@";
+    }
+    setLcdText("Premi il tasto", text);
+    while(!isPressed(pin)){
+    }
+    digitalWrite(pin + 1, HIGH);
+    setLcdText("Led del tasto", "acceso");
+    delay(1000);
+  }
+}
+
 void temporized(int maxbuttons, boolean senior) {
   int timeout = 1000;
 
