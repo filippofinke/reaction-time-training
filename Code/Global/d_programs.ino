@@ -29,6 +29,8 @@ void systemCheck() {
     setLcdText("Led del tasto", "acceso");
     delay(1000);
   }
+  setLcdText("Fine","Procedura");
+  delay(2500);
 }
 
 void temporized(int maxbuttons, boolean senior) {
