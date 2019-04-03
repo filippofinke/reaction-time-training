@@ -24,6 +24,7 @@ void systemCheck() {
     }
     setLcdText("Premi il tasto", text);
     while(!isPressed(pin)){
+      setLcdText("In attesa del tasto", text);
     }
     digitalWrite(pin + 1, HIGH);
     setLcdText("Led del tasto", "acceso");
