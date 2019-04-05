@@ -4,8 +4,6 @@
 - Tiro a vuoto – pulsanti 1 secondo, senior
 
 ### Da fare:
-- Semplice gioco Simon: 20 pulsanti, 17 livelli
-- Flash test, 5 schemi
 - Anti- flash test
 - Reazione veloce, 10 schemi
 
@@ -20,6 +18,8 @@
 8. Staffetta 4 giocatori (tempo totale 120 secondi), senior
 9. Reazione, somma aritmetica
 6. Test di Léger o Beep test, senior
+20. Semplice gioco Simon: 20 pulsanti, 17 livelli
+21. Flash test, 5 schemi
 
 
 ### Testati
