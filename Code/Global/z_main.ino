@@ -152,6 +152,14 @@ void loop() {
   {
     cumulative(180000, false);
   }
+  else if(selected == 20)
+  {
+    simon();
+  }
+  else if(selected == 21)
+  {
+    flashtest();
+  }
   else if (selected == 99)
   {
     systemCheck();

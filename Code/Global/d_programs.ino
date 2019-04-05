@@ -10,28 +10,203 @@ void systemCheck() {
   tone(buzzerPin, 2000);
   delay(1000);
   noTone(buzzerPin);
-  for(int i = 0; i < SIZE; i++)
+  for (int i = 0; i < SIZE; i++)
   {
     int pin = buttonPins[i];
     String text = String(getLabel(pin));
-    if(text == 42)
+    if (text == 10)
     {
       text = "#";
     }
-    else if(text == 44)
+    else if (text == 11)
     {
       text = "@";
     }
     setLcdText("Premi il tasto", text);
-    while(!isPressed(pin)){
-      setLcdText("In attesa del tasto", text);
+    while (!isPressed(pin)) {
     }
     digitalWrite(pin + 1, HIGH);
     setLcdText("Led del tasto", "acceso");
     delay(1000);
   }
-  setLcdText("Fine","Procedura");
+  setLcdText("Fine", "Procedura");
   delay(2500);
+}
+
+void flashtest() {
+  resetLeds();
+  setLcdText("Seleziona tempo", "1 - 8 s");
+  bool waiting = true;
+  int selectedtime = 0;
+  while (waiting)
+  {
+    for (int i = 1; i <= SIZE; i++)
+    {
+      int bpin = buttonPins[i];
+      bool lastState = getLastState(bpin);
+      bool currentState = isPressed(bpin);
+      if (currentState == HIGH && currentState != lastState)
+      {
+        digitalWrite(bpin + 1, HIGH);
+        int label = getLabel(bpin);
+        if (label >= 1 && label <= 8)
+        {
+          selectedtime = label * 1000;
+          waiting = false;
+        }
+      }
+    }
+  }
+  setLcdText("Selezionato:", String(selectedtime / 1000) + " s");
+  resetLeds();
+  int points = 0;
+  bool playing = true;
+  delay(200);
+  for (int i = 0; i < 5 && playing; i++)
+  {
+    resetLeds();
+    sendData(1, i + 1);
+    setLcdText("Schema:", String(i + 1) + "/5");
+    int sequence[6];
+    for (int i = 0; i < 6; i++)
+    {
+      int rndpin = getRandom(buttonPins, SIZE);
+      sequence[i] = rndpin;
+      digitalWrite(rndpin + 1, HIGH);
+    }
+    tone(buzzerPin, 2000);
+    delay(250);
+    noTone(buzzerPin);
+    delay(100);
+    tone(buzzerPin, 2000);
+    delay(250);
+    noTone(buzzerPin);
+    long startTime = millis();
+    int pressed = 0;
+    bool insideLevel = true;
+    resetButtonsState();
+    while (insideLevel)
+    {
+      if (millis() - startTime >= selectedtime)
+      {
+        playing = false;
+        break;
+      }
+      for (int b = 0; b < SIZE && insideLevel && playing; b++)
+      {
+        int pin = buttonPins[b];
+        bool presslastState = getLastState(pin);
+        bool presscurrentState = isPressed(pin);
+        if (presslastState == HIGH && presslastState != presscurrentState)
+        {
+          bool edited = false;
+          for (int x = 0; x < 6; x++) {
+            if (sequence[x] == pin) {
+              Serial.println(String(sequence[x]) + " " + String(pin));
+              edited = true;
+              digitalWrite(pin + 1, LOW);
+              pressed += 1;
+              points += 1;
+              sendData(0, points);
+              if (pressed == 6)
+              {
+                insideLevel = false;
+              }
+              sequence[x] = -1;
+            }
+          }
+          if (!edited)
+          {
+            playing = false;
+            insideLevel = false;
+            setLcdText("Hai sbagliato", "");
+            delay(1000);
+          }
+          delay(150);
+        }
+      }
+    }
+  }
+}
+
+void simon() {
+  int buttons = 20;
+  int sequence[buttons];
+  for (int i = 0; i < buttons; i++)
+  {
+    int rndpin = getRandom(buttonPins, SIZE);
+    sequence[i] = rndpin;
+  }
+
+  int toShow = 4;
+  int pressed = 0;
+  boolean playing = HIGH;
+  bool insideLevel = HIGH;
+  int points = 0;
+  for (int i = 0; i < 17 && playing; i++)
+  {
+    sendData(1, (i + 1));
+    setLcdText("Livello:" + String(i + 1), "Osserva");
+    for (int x = 0; x < toShow; x++)
+    {
+      for (int y = 0; y < 3; y++)
+      {
+        digitalWrite(sequence[x] + 1, HIGH);
+        delay(100);
+        digitalWrite(sequence[x] + 1, LOW);
+        delay(100);
+      }
+      delay(500);
+    }
+    tone(buzzerPin, 2000);
+    delay(250);
+    noTone(buzzerPin);
+    delay(100);
+    tone(buzzerPin, 2000);
+    delay(250);
+    noTone(buzzerPin);
+    setLcdText("Ripeti la", "sequenza");
+    resetButtonsState();
+    pressed = 0;
+    toShow += 1;
+    insideLevel = true;
+    while (insideLevel && playing)
+    {
+      for (int b = 0; b < SIZE && playing && insideLevel; b++)
+      {
+        int pin = buttonPins[b];
+        bool presslastState = getLastState(pin);
+        bool presscurrentState = isPressed(pin);
+        if (presslastState == HIGH && presslastState != presscurrentState)
+        {
+          Serial.println("Premuto:");
+          Serial.println(pin);
+          Serial.println("Aspettato:");
+          Serial.println(sequence[pressed]);
+          Serial.println("################");
+          if (pin == sequence[pressed])
+          {
+            digitalWrite(pin + 1, HIGH);
+            pressed += 1;
+            points += 1;
+            sendData(0, points);
+            delay(150);
+            if (pressed == toShow - 1)
+            {
+              insideLevel = false;
+            }
+          }
+          else
+          {
+            playing = false;
+            setLcdText("Hai sbagliato", "la sequenza");
+            delay(1000);
+          }
+        }
+      }
+    }
+    resetLeds();
+  }
 }
 
 void temporized(int maxbuttons, boolean senior) {
