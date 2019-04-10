@@ -1,8 +1,8 @@
 /*
-   c_programs
-
-   @author Filippo Finke
-*/
+ * c_programs
+ *
+ * @author Filippo Finke
+ */
 
 void systemCheck() {
   setLcdText("Avvio procedura", "di test");
