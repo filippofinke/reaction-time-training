@@ -33,7 +33,7 @@ void systemCheck() {
   delay(2500);
 }
 
-void flashtest() {
+void flashtest(bool onButtons) {
   resetLeds();
   setLcdText("Seleziona tempo", "1 - 8 s");
   bool waiting = true;
@@ -68,11 +68,25 @@ void flashtest() {
     sendData(1, i + 1);
     setLcdText("Schema:", String(i + 1) + "/5");
     int sequence[6];
+    if(onButtons)
+    {
+      for(int i = 0; i < SIZE; i++)
+      {
+        digitalWrite(buttonPins[i] + 1, HIGH);
+      }
+    }
     for (int i = 0; i < 6; i++)
     {
       int rndpin = getRandom(buttonPins, SIZE);
       sequence[i] = rndpin;
-      digitalWrite(rndpin + 1, HIGH);
+      if(onButtons)
+      {
+        digitalWrite(rndpin + 1, HIGH);
+      }
+      else
+      {
+        digitalWrite(rndpin + 1, LOW);
+      }
     }
     tone(buzzerPin, 2000);
     delay(250);

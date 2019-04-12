@@ -158,7 +158,11 @@ void loop() {
   }
   else if(selected == 21)
   {
-    flashtest();
+    flashtest(true);
+  }
+  else if(selected == 22)
+  {
+    flashtest(false);
   }
   else if (selected == 99)
   {
