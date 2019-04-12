@@ -4,12 +4,21 @@
  * @author Filippo Finke
  */
 
+/*
+* Programma che serve a verificare che il sistema 
+* hardware funzioni come deve.
+*/
 void systemCheck() {
+  //Stampa sul display LCD.
   setLcdText("Avvio procedura", "di test");
   setLcdText("Test buzzer", "1 secondo");
+  //Il buzzer emette un suono a frequenza 2000.
   tone(buzzerPin, 2000);
+  //Aspetta 1 secondo.
   delay(1000);
+  //Fa tacere il buzzer.
   noTone(buzzerPin);
+  //Ciclo che scorre tutti i pulsanti del sistema.
   for (int i = 0; i < SIZE; i++)
   {
     int pin = buttonPins[i];
