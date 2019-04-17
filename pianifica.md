@@ -12,7 +12,7 @@
   - Fix display
 
 ### Fatti da testare
-8. Staffetta 4 giocatori (tempo totale 120 secondi), senior
+8. Staffetta 4 giocatori (tempo totale 120 secondi), senior -> test non passato (bottoni che restano accesi e tempo sfasato)
 9. Reazione, somma aritmetica
 6. Test di Léger o Beep test, senior
 20. Semplice gioco Simon: 20 pulsanti, 17 livelli
