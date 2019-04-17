@@ -18,6 +18,7 @@
 22. Anti- flash test (Da revisionare il tempo) -> fixare
 23. Reazione veloce, 10 schemi -> fixare
 99. Errori e problemi fa gestire
+10. Tabelline
 
 
 ### Testati
