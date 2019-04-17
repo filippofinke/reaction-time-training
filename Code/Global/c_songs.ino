@@ -19,11 +19,11 @@ const int gSH = 830;
 const int aH = 880;
 
 /**
- * Metodo che emette la nota passata come parametro per la durata desiderata.
- * 
- * @param note nota da emettere.
- * @param duration durata dell'emissione della nota.
- */
+   Metodo che emette la nota passata come parametro per la durata desiderata.
+
+   @param note nota da emettere.
+   @param duration durata dell'emissione della nota.
+*/
 void beep(int note, int duration)
 {
   tone(buzzerPin, note);
@@ -33,8 +33,8 @@ void beep(int note, int duration)
 }
 
 /**
- * Metodo che compone con una sequenza di note una canzone.
- */
+   Metodo che compone con una sequenza di note una canzone.
+*/
 void winSong()
 {
   beep(a, 500);

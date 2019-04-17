@@ -4,15 +4,12 @@
 - Tiro a vuoto – pulsanti 1 secondo, senior
 
 ### Da fare:
-- Anti- flash test
-- Reazione veloce, 10 schemi
 
 ### In corso
 - Stretching angolare, 25 pulsanti
   - Fix display
 - Stretching angolare, 50 pulsanti
   - Fix display
-- Errori e problemi fa gestire
 
 ### Fatti da testare
 8. Staffetta 4 giocatori (tempo totale 120 secondi), senior
@@ -20,7 +17,9 @@
 6. Test di Léger o Beep test, senior
 20. Semplice gioco Simon: 20 pulsanti, 17 livelli
 21. Flash test, 5 schemi
-
+22. Anti- flash test
+23. Reazione veloce, 10 schemi
+99. Errori e problemi fa gestire
 
 ### Testati
 1. Cumulativo 60 secondi, senior

@@ -152,17 +152,21 @@ void loop() {
   {
     cumulative(180000, false);
   }
-  else if(selected == 20)
+  else if (selected == 20)
   {
     simon();
   }
-  else if(selected == 21)
+  else if (selected == 21)
+  {
+    flashtest(false);
+  }
+  else if (selected == 22)
   {
     flashtest(true);
   }
-  else if(selected == 22)
+  else if (selected == 23)
   {
-    flashtest(false);
+    fastreaction();
   }
   else if (selected == 99)
   {

@@ -1,12 +1,12 @@
 /*
- * c_programs
- *
- * @author Filippo Finke
- */
+   c_programs
+
+   @author Filippo Finke
+*/
 
 /*
-* Programma che serve a verificare che il sistema 
-* hardware funzioni come deve.
+  Programma che serve a verificare che il sistema
+  hardware funzioni come deve.
 */
 void systemCheck() {
   //Stampa sul display LCD.
@@ -40,6 +40,78 @@ void systemCheck() {
   }
   setLcdText("Fine", "Procedura");
   delay(2500);
+}
+
+void fastreaction() {
+  int schemes = 10;
+  resetLeds();
+  setLcdText("Seleziona", "pulsanti (1-11)");
+  bool waiting = true;
+  int buttons = 0;
+  while (waiting)
+  {
+    for (int i = 1; i <= SIZE; i++)
+    {
+      int bpin = buttonPins[i];
+      bool lastState = getLastState(bpin);
+      bool currentState = isPressed(bpin);
+      if (currentState == HIGH && currentState != lastState)
+      {
+        digitalWrite(bpin + 1, HIGH);
+        int label = getLabel(bpin);
+        if (label >= 1 && label <= 11)
+        {
+          buttons = label;
+          waiting = false;
+        }
+      }
+    }
+  }
+  int buttonseq[buttons];
+  long startTime = millis();
+  int points = 0;
+  for (int i = 0; i < schemes; i++)
+  {
+    resetLeds();
+    setLcdText("Schema " + String(i + 1) + "/" + String(schemes), "Bottoni: " + String(buttons));
+    for (int a = 0; a < buttons; a++)
+    {
+      int rndpin = getRandom(buttonPins, SIZE);
+      buttonseq[a] = rndpin;
+      digitalWrite(rndpin + 1, HIGH);
+    }
+    resetButtonsState();
+    int pressed = 0;
+    bool insideLevel = true;
+    resetButtonsState();
+    while (insideLevel)
+    {
+      sendData(0, (millis() - startTime) / 100);
+      for (int b = 0; b < SIZE && insideLevel; b++)
+      {
+        int pin = buttonPins[b];
+        bool presslastState = getLastState(pin);
+        bool presscurrentState = isPressed(pin);
+        if (presslastState == HIGH && presslastState != presscurrentState)
+        {
+          for (int x = 0; x < buttons; x++) {
+            if (buttonseq[x] == pin) {
+              Serial.println(String(buttonseq[x]) + " " + String(pin));
+              digitalWrite(pin + 1, LOW);
+              pressed += 1;
+              points += 1;
+              sendData(1, points);
+              if (pressed == buttons)
+              {
+                insideLevel = false;
+              }
+              buttonseq[x] = -1;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 void flashtest(bool onButtons) {
@@ -77,9 +149,9 @@ void flashtest(bool onButtons) {
     sendData(1, i + 1);
     setLcdText("Schema:", String(i + 1) + "/5");
     int sequence[6];
-    if(onButtons)
+    if (onButtons)
     {
-      for(int i = 0; i < SIZE; i++)
+      for (int i = 0; i < SIZE; i++)
       {
         digitalWrite(buttonPins[i] + 1, HIGH);
       }
@@ -88,13 +160,13 @@ void flashtest(bool onButtons) {
     {
       int rndpin = getRandom(buttonPins, SIZE);
       sequence[i] = rndpin;
-      if(onButtons)
+      if (onButtons)
       {
-        digitalWrite(rndpin + 1, HIGH);
+        digitalWrite(rndpin + 1, LOW);
       }
       else
       {
-        digitalWrite(rndpin + 1, LOW);
+        digitalWrite(rndpin + 1, HIGH);
       }
     }
     tone(buzzerPin, 2000);
@@ -127,7 +199,14 @@ void flashtest(bool onButtons) {
             if (sequence[x] == pin) {
               Serial.println(String(sequence[x]) + " " + String(pin));
               edited = true;
-              digitalWrite(pin + 1, LOW);
+              if (onButtons)
+              {
+                digitalWrite(pin + 1, HIGH);
+              }
+              else
+              {
+                digitalWrite(pin + 1, LOW);
+              }
               pressed += 1;
               points += 1;
               sendData(0, points);
