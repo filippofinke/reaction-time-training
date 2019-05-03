@@ -1,9 +1,9 @@
 
 ### Da rivedere:
-- Tabelline, test di velocità
-- Tiro a vuoto – pulsanti 1 secondo, senior
 
 ### Da fare:
+5. Tiro a vuoto – pulsanti 1 secondo, senior
+10. Tabelline, test di velocità
 
 ### In corso
 
@@ -12,7 +12,6 @@
 22. Anti- flash test (Da revisionare il tempo) -> fixare
 23. Reazione veloce, 10 schemi -> fixare
 99. Errori e problemi fa gestire
-10. Tabelline
 
 
 ### Testati
