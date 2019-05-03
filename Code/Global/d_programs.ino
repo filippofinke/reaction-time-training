@@ -570,6 +570,8 @@ void cumulative(long duration, boolean senior) {
   }
   Serial.print("Fine modalità! Punteggio: ");
   Serial.println(pressedButtons);
+  resetButtonsState();
+  resetLeds();
 }
 
 void beepTest() {

@@ -8,8 +8,6 @@
 ### In corso
 
 ### Fatti da testare
-8. Staffetta 4 giocatori (tempo totale 120 secondi), senior -> test non passato (bottoni che restano accesi e tempo sfasato)
-
 21. Flash test, 5 schemi (Da revisionare il tempo) -> fixare
 22. Anti- flash test (Da revisionare il tempo) -> fixare
 23. Reazione veloce, 10 schemi -> fixare
@@ -24,6 +22,7 @@
 4. Stretching angolare, 100 pulsanti, senior
 6. Test di Léger o Beep test, senior
 7. 50 pulsanti temporizzati, 1 secondo per pulsante, senior
+8. Staffetta 4 giocatori (tempo totale 120 secondi), senior
 9. Reazione, somma aritmetica
 11. Stretching angolare, 25 pulsanti
 12. Stretching angolare, 50 pulsanti
