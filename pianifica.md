@@ -5,12 +5,11 @@
 5. Tiro a vuoto – pulsanti 1 secondo, senior
 10. Tabelline, test di velocità
 
+Comando per uscire da qualsiasi programma.
+
 ### In corso
 
 ### Fatti da testare
-21. Flash test, 5 schemi (Da revisionare il tempo) -> fixare
-22. Anti- flash test (Da revisionare il tempo) -> fixare
-23. Reazione veloce, 10 schemi -> fixare
 99. Errori e problemi fa gestire
 
 
@@ -33,3 +32,6 @@
 18. Corsa 50 pulsanti, junior
 19. Maratona (3 minuti) junior
 20. Semplice gioco Simon: 20 pulsanti, 17 livelli
+21. Flash test, 5 schemi
+22. Anti- flash test 
+23. Reazione veloce, 10 schemi

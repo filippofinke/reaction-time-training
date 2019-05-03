@@ -76,7 +76,23 @@ void fastreaction() {
     setLcdText("Schema " + String(i + 1) + "/" + String(schemes), "Bottoni: " + String(buttons));
     for (int a = 0; a < buttons; a++)
     {
-      int rndpin = getRandom(buttonPins, SIZE);
+      bool random = true;
+      int rndpin = 0;
+      while (random)
+      {
+        rndpin = getRandom(buttonPins, SIZE);
+        bool contain = false;
+        for (int j = 0; j < 6; j++)
+        {
+          if (buttonseq[j] == rndpin) {
+            contain = true;
+          }
+        }
+        if (!contain)
+        {
+          break;
+        }
+      }
       buttonseq[a] = rndpin;
       digitalWrite(rndpin + 1, HIGH);
     }
@@ -158,7 +174,23 @@ void flashtest(bool onButtons) {
     }
     for (int i = 0; i < 6; i++)
     {
-      int rndpin = getRandom(buttonPins, SIZE);
+      bool random = true;
+      int rndpin = 0;
+      while (random)
+      {
+        rndpin = getRandom(buttonPins, SIZE);
+        bool contain = false;
+        for (int j = 0; j < 6; j++)
+        {
+          if (sequence[j] == rndpin) {
+            contain = true;
+          }
+        }
+        if (!contain)
+        {
+          break;
+        }
+      }
       sequence[i] = rndpin;
       if (onButtons)
       {
