@@ -42,6 +42,78 @@ void systemCheck() {
   delay(2500);
 }
 
+void boards() {
+  resetLeds();
+  resetButtonsState();
+  setLcdText("Seleziona", "tabellina (2-9)");
+  bool waiting = true;
+  int boards = 0;
+  while (waiting)
+  {
+    for (int i = 1; i <= SIZE; i++)
+    {
+      int bpin = buttonPins[i];
+      bool lastState = getLastState(bpin);
+      bool currentState = isPressed(bpin);
+      if (currentState == HIGH && currentState != lastState)
+      {
+        digitalWrite(bpin + 1, HIGH);
+        int label = getLabel(bpin);
+        if (label >= 1 && label <= 11)
+        {
+          boards = label;
+          waiting = false;
+        }
+      }
+    }
+  }
+  setLcdText("Tabellina", "del " + String(boards));
+  long startTime = millis();
+  for (int i = 0; i < 12; i++)
+  {
+    resetLeds();
+    int one = boards;
+    int two = random(0, 9);
+    int sum = one * two;
+    
+    setLcdText(String(one) + " * " + String(two) + " = ?","");
+
+    startTime = millis();
+    waiting = true;
+    while (waiting)
+    {
+      sendData(1, millis() - startTime);
+      
+      for (int x = 0; x < SIZE; x++)
+      {
+        int bpin = buttonPins[x];
+        bool lastState = getLastState(bpin);
+        bool currentState = isPressed(bpin);
+        if (currentState == HIGH && currentState != lastState)
+        {
+          Serial.println(sum);
+          Serial.println(getLabel(bpin));
+          if(getLabel(bpin) == sum)
+          {
+            digitalWrite(bpin + 1, HIGH);
+            waiting = false;
+            break;
+          }
+          else
+          {
+            if(getLabel(bpin) == sum / 10)
+            {
+              digitalWrite(bpin + 1, HIGH);
+              sum = sum - getLabel(bpin) * 10;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+}
+
 void fastreaction() {
   int schemes = 10;
   resetLeds();

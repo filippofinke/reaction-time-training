@@ -64,6 +64,9 @@ int waitUser() {
 }
 
 void loop() {
+  boards();
+  return;
+  
   setLcdText("In attesa...", "Premi @");
   int selected = waitUser();
   setLcdText("Programma", "N: " + String(selected));
@@ -114,8 +117,10 @@ void loop() {
   {
     mathsum();
   }
-  /*else if(selected == 10)
-    {}*/
+  else if(selected == 10)
+  {
+    boards();
+  }
   else if (selected == 11)
   {
     angularStretching(25, 11);

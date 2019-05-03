@@ -3,13 +3,13 @@
 
 ### Da fare:
 5. Tiro a vuoto – pulsanti 1 secondo, senior
-10. Tabelline, test di velocità
 
 Comando per uscire da qualsiasi programma.
 
 ### In corso
 
 ### Fatti da testare
+10. Tabelline, test di velocità
 99. Errori e problemi fa gestire
 
 
