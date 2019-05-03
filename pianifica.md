@@ -6,10 +6,6 @@
 ### Da fare:
 
 ### In corso
-- Stretching angolare, 25 pulsanti
-  - Fix display
-- Stretching angolare, 50 pulsanti
-  - Fix display
 
 ### Fatti da testare
 8. Staffetta 4 giocatori (tempo totale 120 secondi), senior -> test non passato (bottoni che restano accesi e tempo sfasato)
@@ -29,6 +25,8 @@
 6. Test di Léger o Beep test, senior
 7. 50 pulsanti temporizzati, 1 secondo per pulsante, senior
 9. Reazione, somma aritmetica
+11. Stretching angolare, 25 pulsanti
+12. Stretching angolare, 50 pulsanti
 13. 25 pulsanti temporizzati, 1 secondo per pulsante, junior
 14. 50 pulsanti temporizzati, 1 secondo per pulsante, junior
 15. Cumulativo 30 secondi, junior
