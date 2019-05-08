@@ -64,6 +64,7 @@ int waitUser() {
 }
 
 void loop() {  
+  programRunning = true;
   setLcdText("In attesa...", "Premi @");
   int selected = waitUser();
   setLcdText("Programma", "N: " + String(selected));

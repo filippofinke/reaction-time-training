@@ -48,7 +48,7 @@ void boards() {
   setLcdText("Seleziona", "tabellina (2-9)");
   bool waiting = true;
   int boards = 0;
-  while (waiting)
+  while (waiting && programRunning)
   {
     for (int i = 1; i <= SIZE; i++)
     {
@@ -69,7 +69,7 @@ void boards() {
   }
   setLcdText("Tabellina", "del " + String(boards));
   long startTime = millis();
-  for (int i = 0; i < 12; i++)
+  for (int i = 0; i < 12 && programRunning; i++)
   {
     resetLeds();
     int one = boards;
@@ -80,7 +80,7 @@ void boards() {
 
     startTime = millis();
     waiting = true;
-    while (waiting)
+    while (waiting && programRunning)
     {
       sendData(1, millis() - startTime);
       
@@ -120,7 +120,7 @@ void fastreaction() {
   setLcdText("Seleziona", "pulsanti (1-11)");
   bool waiting = true;
   int buttons = 0;
-  while (waiting)
+  while (waiting && programRunning)
   {
     for (int i = 1; i <= SIZE; i++)
     {
@@ -142,7 +142,7 @@ void fastreaction() {
   int buttonseq[buttons];
   long startTime = millis();
   int points = 0;
-  for (int i = 0; i < schemes; i++)
+  for (int i = 0; i < schemes && programRunning; i++)
   {
     resetLeds();
     setLcdText("Schema " + String(i + 1) + "/" + String(schemes), "Bottoni: " + String(buttons));
@@ -172,10 +172,10 @@ void fastreaction() {
     int pressed = 0;
     bool insideLevel = true;
     resetButtonsState();
-    while (insideLevel)
+    while (insideLevel && programRunning)
     {
       sendData(0, (millis() - startTime) / 100);
-      for (int b = 0; b < SIZE && insideLevel; b++)
+      for (int b = 0; b < SIZE && insideLevel && programRunning; b++)
       {
         int pin = buttonPins[b];
         bool presslastState = getLastState(pin);
@@ -207,7 +207,7 @@ void flashtest(bool onButtons) {
   setLcdText("Seleziona tempo", "1 - 8 s");
   bool waiting = true;
   int selectedtime = 0;
-  while (waiting)
+  while (waiting && programRunning)
   {
     for (int i = 1; i <= SIZE; i++)
     {
@@ -231,7 +231,7 @@ void flashtest(bool onButtons) {
   int points = 0;
   bool playing = true;
   delay(200);
-  for (int i = 0; i < 5 && playing; i++)
+  for (int i = 0; i < 5 && playing && programRunning; i++)
   {
     resetLeds();
     sendData(1, i + 1);
@@ -284,14 +284,14 @@ void flashtest(bool onButtons) {
     int pressed = 0;
     bool insideLevel = true;
     resetButtonsState();
-    while (insideLevel)
+    while (insideLevel && programRunning)
     {
       if (millis() - startTime >= selectedtime)
       {
         playing = false;
         break;
       }
-      for (int b = 0; b < SIZE && insideLevel && playing; b++)
+      for (int b = 0; b < SIZE && insideLevel && playing && programRunning; b++)
       {
         int pin = buttonPins[b];
         bool presslastState = getLastState(pin);
@@ -349,7 +349,7 @@ void simon() {
   boolean playing = HIGH;
   bool insideLevel = HIGH;
   int points = 0;
-  for (int i = 0; i < 17 && playing; i++)
+  for (int i = 0; i < 17 && playing && programRunning; i++)
   {
     sendData(1, (i + 1));
     setLcdText("Livello:" + String(i + 1), "Osserva");
@@ -376,9 +376,9 @@ void simon() {
     pressed = 0;
     toShow += 1;
     insideLevel = true;
-    while (insideLevel && playing)
+    while (insideLevel && playing && programRunning)
     {
-      for (int b = 0; b < SIZE && playing && insideLevel; b++)
+      for (int b = 0; b < SIZE && playing && insideLevel && programRunning; b++)
       {
         int pin = buttonPins[b];
         bool presslastState = getLastState(pin);
@@ -433,7 +433,7 @@ void temporized(int maxbuttons, boolean senior) {
   }
   digitalWrite(currentPin + 1, HIGH);
 
-  while (pressedButtons < maxbuttons)
+  while (pressedButtons < maxbuttons && programRunning)
   {
     elapsed = millis() - startButton;
     sendData(0, (timeout - elapsed) / 100);
@@ -516,7 +516,7 @@ void angularStretching(int maxbuttons, int program) {
   int currentPin = getRandom(angularPins, ANGULAR_STRETCHING_SIZE);
   digitalWrite(currentPin + 1, HIGH);
 
-  while (leftButtons > 0)
+  while (leftButtons > 0 && programRunning)
   {
     elapsed = (millis() - start);
     if (program == 4)
@@ -598,8 +598,9 @@ void rush(long duration, int maxbuttons, boolean senior) {
   digitalWrite(currentPin + 1, HIGH);
 
 
-  while (elapsed <= duration && pressedButtons < maxbuttons)
+  while (elapsed <= duration && pressedButtons < maxbuttons && programRunning)
   {
+    isPressed(44);
     elapsed = (millis() - start);
     sendData(0, elapsed / 100);
     bool presslastState = getLastState(currentPin);
@@ -646,8 +647,9 @@ void cumulative(long duration, boolean senior) {
   int pressedButtons = 0;
   digitalWrite(currentPin + 1, HIGH);
 
-  while (elapsed <= duration)
+  while (elapsed <= duration && programRunning)
   {
+    isPressed(44);
     elapsed = (millis() - start);
     sendData(0, elapsed / 100);
     bool presslastState = getLastState(currentPin);
@@ -690,12 +692,12 @@ void beepTest() {
   int errors = 0;
   int currentPin = getRandom(buttonPins, SIZE);
   digitalWrite(currentPin + 1, HIGH);
-  for (int l = 0; l < levels && errors <= 2; l++)
+  for (int l = 0; l < levels && errors <= 2 && programRunning; l++)
   {
     Serial.print("Livello: ");
     Serial.println(l + 1);
     setLcdText("Livello:", String(l + 1));
-    while (pressedButtons <= buttons * l && errors <= 2)
+    while (pressedButtons <= buttons * l && errors <= 2 && programRunning)
     {
       elapsed = (millis() - start);
       sendData(0, elapsed / 100);
@@ -820,7 +822,7 @@ void mathsum() {
 
     startTime = millis();
     waiting = true;
-    while (millis() - startTime <= millisec && waiting)
+    while (millis() - startTime <= millisec && waiting && programRunning)
     {
       for (int x = 0; x < SIZE; x++)
       {

@@ -12,6 +12,9 @@
    @param size dimensione dell'array.
    @return pin casuale dell'array passato come parametro.
 */
+
+long resetTime = 0;
+
 int getRandom(int pins[], int size) {
   int pin = pins[random(0, size + 1)];
   if (pin >= 22 && pin <= 45)
@@ -101,6 +104,27 @@ bool getLastState(int pin)
 void setLastState(int pin, bool state)
 {
   int index = getLabel(pin);
+  if (state == HIGH && pin == 44)
+  {
+    if (resetTime != 0)
+    {
+      long elapsed = millis() - resetTime;
+      Serial.println(elapsed);
+      if (elapsed > 2500)
+      {
+        programRunning = false;
+        resetTime = 0;
+      }
+    }
+    else
+    {
+      resetTime = millis();
+    }
+  }
+  else if (state == LOW && pin == 44)
+  {
+    resetTime = 0;
+  }
   buttonStatus[index] = state;
 }
 

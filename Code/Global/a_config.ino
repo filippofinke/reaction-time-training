@@ -26,6 +26,7 @@ int buzzerPin = 6;
 
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
+boolean programRunning = true;
 
 void setup() {
   Wire.begin();
