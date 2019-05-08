@@ -35,16 +35,19 @@
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
         <task id="0" name="Progetto 3" meeting="false" start="2019-02-13" duration="71" complete="0" expand="true">
+            <task id="65" name="Inizio progetto 3" color="#000000" meeting="true" start="2019-02-13" duration="0" complete="0" thirdDate="2019-02-13" thirdDate-constraint="0" expand="true"/>
             <task id="3" name="Documentazione" color="#8cb6ce" meeting="false" start="2019-02-13" duration="71" complete="0" thirdDate="2019-02-11" thirdDate-constraint="0" expand="true"/>
             <task id="7" name="Presentazione" meeting="false" start="2019-05-08" duration="8" complete="0" expand="true"/>
             <task id="2" name="Progettazione" meeting="false" start="2019-02-13" duration="3" complete="0" expand="true">
                 <task id="14" name="Domande al committente" meeting="false" start="2019-02-13" duration="1" complete="0" expand="true"/>
                 <task id="8" name="Gantt" color="#8cb6ce" meeting="false" start="2019-02-13" duration="3" complete="0" thirdDate="2019-02-11" thirdDate-constraint="0" expand="true"/>
                 <task id="17" name="Analisi del dominio" meeting="false" start="2019-02-15" duration="1" complete="0" expand="true"/>
-                <task id="18" name="Analisi dei requisiti" meeting="false" start="2019-02-15" duration="1" complete="0" expand="true"/>
+                <task id="18" name="Analisi dei requisiti" color="#8cb6ce" meeting="false" start="2019-02-15" duration="1" complete="0" thirdDate="2019-02-15" thirdDate-constraint="0" expand="true"/>
+                <task id="50" name="Fine Progettazione" color="#000000" meeting="true" start="2019-02-15" duration="0" complete="0" thirdDate="2019-01-14" thirdDate-constraint="0" expand="true"/>
             </task>
             <task id="5" name="Implementazione" color="#000000" meeting="false" start="2019-02-13" duration="43" complete="0" thirdDate="2019-02-11" thirdDate-constraint="0" expand="true">
                 <task id="15" name="Prova di funzionamento hardware" meeting="false" start="2019-02-13" duration="6" complete="0" expand="true"/>
+                <task id="53" name="Inizio programmazione" color="#000000" meeting="true" start="2019-02-20" duration="0" complete="0" thirdDate="2019-01-14" thirdDate-constraint="0" expand="true"/>
                 <task id="19" name="Realizzazione Moduli" meeting="false" start="2019-02-20" duration="38" complete="0" expand="true">
                     <task id="20" name="1) Cumulativo 60 s, S" color="#8cb6ce" meeting="false" start="2019-02-20" duration="3" complete="0" thirdDate="2019-02-20" thirdDate-constraint="0" expand="true"/>
                     <task id="21" name="2) Maratona 5min, S" meeting="false" start="2019-02-20" duration="3" complete="0" expand="true"/>
@@ -69,6 +72,7 @@
                     <task id="40" name="21) Flash test, 5 schemi" meeting="false" start="2019-04-05" duration="6" complete="0" expand="true"/>
                     <task id="41" name="22) Anti-Flash test" meeting="false" start="2019-04-10" duration="3" complete="0" expand="true"/>
                     <task id="42" name="23) Reazione Veloce, 10 schemi" meeting="false" start="2019-04-10" duration="3" complete="0" expand="true"/>
+                    <task id="57" name="Fine Programmazione" color="#000000" meeting="true" start="2019-04-12" duration="0" complete="0" thirdDate="2019-01-14" thirdDate-constraint="0" expand="true"/>
                 </task>
                 <task id="43" name="Gestione bug" meeting="false" start="2019-02-20" duration="21" complete="0" expand="true">
                     <task id="44" name="Pulsanti incastrati" meeting="false" start="2019-02-20" duration="21" complete="0" expand="true"/>
@@ -77,6 +81,8 @@
                 </task>
             </task>
             <task id="6" name="Test" color="#8cb6ce" meeting="false" start="2019-02-20" duration="43" complete="0" thirdDate="2019-02-11" thirdDate-constraint="0" expand="true"/>
+            <task id="60" name="Fine test (2 settimane per ammortizzare eventuali ritardi)" color="#000000" meeting="true" start="2019-04-19" duration="0" complete="0" thirdDate="2019-01-14" thirdDate-constraint="0" expand="true"/>
+            <task id="63" name="Prodotto pronto alla consegna" color="#000000" meeting="true" start="2019-05-22" duration="0" complete="0" thirdDate="2019-01-14" thirdDate-constraint="0" expand="true"/>
         </task>
     </tasks>
     <resources/>
