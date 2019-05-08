@@ -63,7 +63,7 @@
 											"top": 79,
 											"width": 272.77783203125,
 											"height": 13,
-											"text": "functions"
+											"text": "b_functions"
 										},
 										{
 											"_type": "LabelView",
@@ -359,7 +359,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "functions",
+					"name": "b_functions",
 					"operations": [
 						{
 							"_type": "UMLOperation",
@@ -412,7 +412,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFql19GFwuxv00="
 									},
-									"name": "String firstLine"
+									"name": "String firstLine",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -467,7 +468,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFql2GTlwvImsQ="
 									},
-									"name": "byte type"
+									"name": "byte type",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
