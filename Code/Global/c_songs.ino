@@ -1,3 +1,17 @@
+/**
+   c_songs
+   File che permette di eseguire una canzoncina attraverso l'utilizzo del cicalino.
+
+   @author Filippo Finke
+
+   La versione corrente è una versione modificata e adattata da Filippo Finke
+   della versione originale di @nicksort.
+   Versione originale: https://gist.github.com/nicksort/4736535
+*/
+
+/**
+   Costanti che rappresentano le varie note.
+*/
 const int c = 261;
 const int d = 294;
 const int e = 329;
