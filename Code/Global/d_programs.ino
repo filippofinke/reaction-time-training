@@ -1,12 +1,13 @@
 /*
    c_programs
+   File che contiene tutte le modalità di gioco.
 
    @author Filippo Finke
 */
 
 /*
   Programma che serve a verificare che il sistema
-  hardware funzioni come deve.
+  hardware funzioni.
 */
 void systemCheck() {
   //Stampa sul display LCD.
@@ -42,6 +43,12 @@ void systemCheck() {
   delay(2500);
 }
 
+/**
+   Programma numero 10: Tabelline, test di velocità
+
+   Vengono proposte 12 tabelline di un numero scelto dall'utente, tempo senza limiti,
+   se la risposta è di 2 cifre, si devono premere prima le decine e poi le unità.
+*/
 void boards() {
   resetLeds();
   resetButtonsState();
@@ -75,15 +82,15 @@ void boards() {
     int one = boards;
     int two = random(0, 9);
     int sum = one * two;
-    
-    setLcdText(String(one) + " * " + String(two) + " = ?","");
+
+    setLcdText(String(one) + " * " + String(two) + " = ?", "");
 
     startTime = millis();
     waiting = true;
     while (waiting && programRunning)
     {
       sendData(1, millis() - startTime);
-      
+
       for (int x = 0; x < SIZE; x++)
       {
         int bpin = buttonPins[x];
@@ -93,7 +100,7 @@ void boards() {
         {
           Serial.println(sum);
           Serial.println(getLabel(bpin));
-          if(getLabel(bpin) == sum)
+          if (getLabel(bpin) == sum)
           {
             digitalWrite(bpin + 1, HIGH);
             waiting = false;
@@ -101,7 +108,7 @@ void boards() {
           }
           else
           {
-            if(getLabel(bpin) == sum / 10)
+            if (getLabel(bpin) == sum / 10)
             {
               digitalWrite(bpin + 1, HIGH);
               sum = sum - getLabel(bpin) * 10;
@@ -111,9 +118,16 @@ void boards() {
       }
     }
   }
-  
+
 }
 
+/**
+   Programma numero: 23, Reazione veloce 10 schemi.
+
+   Il programma propone 10 schemi riempiti da un numero di pulsanti definito dall'utente.
+   I pulsanti accessi casualmente restano accesi fino a quando l'utente li preme.
+   Il giocatore determina la velocità del gioco.
+*/
 void fastreaction() {
   int schemes = 10;
   resetLeds();
@@ -202,6 +216,16 @@ void fastreaction() {
   }
 }
 
+/**
+   Programma numero: 21 e 22, Flash test, 5 schemi e Anti flash test.
+
+   Il sistema accende 6 pulsanti per 5 schemi.
+   L'utente sceglie la durata da 1 - 8 secondi.
+   Quando il tempo termina vengono emessi due beep.
+   Ogni schema incrementa il punteggio.
+
+   @param onButtons True programma 22, False 21
+*/
 void flashtest(bool onButtons) {
   resetLeds();
   setLcdText("Seleziona tempo", "1 - 8 s");
@@ -335,6 +359,12 @@ void flashtest(bool onButtons) {
   }
 }
 
+/**
+   Programma numero: 20, Semplice gioco: Simon
+
+   Il sistema propone una sequenza di pulsanti che l'utente deve
+   ricreare correttamente.
+*/
 void simon() {
   int buttons = 20;
   int sequence[buttons];
@@ -415,6 +445,14 @@ void simon() {
   }
 }
 
+/**
+   Programma numero: 13 e 14, Pulsanti temporizzati.
+
+   Pulsanti casuali con il tempo per premerli di 1 secondo.
+
+   @param maxbuttons numero di bottoni da premere.
+   @param senior se usare array senior o junior.
+*/
 void temporized(int maxbuttons, boolean senior) {
   int timeout = 1000;
 
@@ -501,6 +539,15 @@ void temporized(int maxbuttons, boolean senior) {
   Serial.print("Fine modalità!");
 }
 
+/**
+   Programma numero: 4, 11 e 12 Stretching angolare
+
+   Vengono accessi per 1 secondo pulsanti agli estremi del telaio, quando
+   l'utente preme un pulsante sbagliato il tempo per premerlo diminuisce.
+
+   @param maxbuttons numero massimo di bottoni da premere.
+   @program 4 per il programma 4, 11 per l'11 e 12 per il 12.
+*/
 void angularStretching(int maxbuttons, int program) {
 #define ANGULAR_STRETCHING_SIZE 7
   int timeout = 1000;
@@ -577,6 +624,15 @@ void angularStretching(int maxbuttons, int program) {
   Serial.print("Fine modalità!");
 }
 
+/**
+   Programma 3, 17 e 18: Corsa
+
+   Il programma accende in modo casuale dei pulsanti per un determinato tempo o massimo.
+
+   @param duation la durata massima del programma.
+   @param maxbuttons il numero massimo di bottoni da premere.
+   @param senior se usare array senior o junior.
+*/
 void rush(long duration, int maxbuttons, boolean senior) {
   Serial.print("DURATA ");
   Serial.println(duration);
@@ -629,6 +685,14 @@ void rush(long duration, int maxbuttons, boolean senior) {
   Serial.println(pressedButtons);
 }
 
+/**
+   Programma numero: 1,2,8,15,16 e 19: Cumulativo
+
+   Il programma ha una durata massima per il quale conta i pulsanti premuti.
+
+   @param duration la durata massima del programma.
+   @param senior se usare array senior o junior.
+*/
 void cumulative(long duration, boolean senior) {
   Serial.print("DURATA ");
   Serial.println(duration);
@@ -680,6 +744,12 @@ void cumulative(long duration, boolean senior) {
   resetLeds();
 }
 
+/**
+ * Programma numero: 6, Beep Test
+ * 
+ * 10 livelli con 30 pulsanti per livello. L'utente deve premere i pulsanti ad
+ * una determinata frequenza, se sbaglia o non fa in tempo ci sarà un feedback audio.
+ */
 void beepTest() {
   int levels = 10;
   int buttons = 10;
@@ -763,6 +833,12 @@ void beepTest() {
   Serial.println(pressedButtons);
 }
 
+/**
+ * Programma numero: 9, Somma aritmetica
+ * 
+ * Il programma chiede all'utente un tempo massimo per risposta.
+ * Vengono proposte 8 addizioni.
+ */
 void mathsum() {
 
   bool waiting = true;
