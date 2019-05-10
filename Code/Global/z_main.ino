@@ -1,14 +1,14 @@
 /**
- * z_ main
- * This is the main program.
- *
- * @author Filippo Finke
- */
+   z_ main
+   This is the main program.
+
+   @author Filippo Finke
+*/
 
 /**
- * Metodo che attende che l'utente inserisca nel sistema un numero di programma
- * valido.
- */
+   Metodo che attende che l'utente inserisca nel sistema un numero di programma
+   valido.
+*/
 int waitUser() {
   bool state = false;
   int counter = 0;
@@ -31,7 +31,7 @@ int waitUser() {
 
   resetLeds();
   //menù delle modalità
-  setLcdText("Premi il numero", "del programma","","");
+  setLcdText("Scegli un programma", "cliccando uno o piu", "pulsanti, da 0 a 23", "BATTAK 2.0");
   bool waiting = true;
   String selected = "";
   int index = 0;
@@ -55,7 +55,7 @@ int waitUser() {
           selected = selected + getLabel(bpin);
           Serial.println(selected);
           index++;
-          setLcdText("Selezionato: " + selected, "Per uscire #", "", "");
+          setLcdText("Numero selezionato:", selected , "Per confermare premi", "il pulsante #");
         }
       }
     }
@@ -63,26 +63,27 @@ int waitUser() {
   }
   resetLeds();
   bool ls = LOW;
-  for (int i = 0; i < 3; i++)
-  {
-    ls = !ls;
-    digitalWrite(45, ls);
-    delay(500);
-    setLcdText("Avvio in", String(((3 * 500) - (i * 500)) / 1000) + " secondi", "", "");
+  int sel = atol(selected.c_str());
+
+  if((sel >= 0 && sel <= 23) || sel == 99) {
+    setLcdText("Avvio il programma","tieniti pronto!","Aspetta 3 secondi","BATTAK 2.0");
+    delay(2000);
+    setLcdText("Manca 1 secondo!", "preparati!!","","BATTAK 2.0");
+    delay(1000);
   }
   resetLeds();
-  return atol(selected.c_str());
+  return sel;
 }
 
 /**
- * Metodo principale in cui viene svolto l'intero programma.
- */
+   Metodo principale in cui viene svolto l'intero programma.
+*/
 void loop() {
   programRunning = true;
-  setLcdText("Per iniziare premi", "il pulsante @", "BATTAK 2.0", "3 Progetto SAMT");
+  setLcdText("Per iniziare premi", "il pulsante @", "", "BATTAK 2.0");
   //aspetto che l'utente scelga il programma
   int selected = waitUser();
-  setLcdText("Programma", "N: " + String(selected), "", "");
+  setLcdText("Programma attuale:" + String(selected),"","","BATTAK 2.0");
   //resetto lo stato dei bottoni
   resetButtonsState();
   //resetto il dispaly 7 segmenti
@@ -122,13 +123,11 @@ void loop() {
   else if (selected == 8)
   {
     //eseguo il programma staffetta 4 giocatori senior
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4 && programRunning; i++)
     {
-      Serial.print("GIOCATORE: ");
-      Serial.println(i + 1);
       cumulative(30000, true);
       long start = millis();
-      while (millis() - start <= 5000)
+      while (millis() - start <= 5000 && programRunning)
       {
         long elapsed = millis() - start;
         sendData(0, elapsed / 100);
@@ -140,7 +139,7 @@ void loop() {
     //eseguo il programma della somma matematica
     mathsum();
   }
-  else if(selected == 10)
+  else if (selected == 10)
   {
     //eseguo il programma delle tabelline
     boards();
@@ -167,7 +166,7 @@ void loop() {
   }
   else if (selected == 15)
   {
-      //eseguo il programma cumulativo 30 secondi junior
+    //eseguo il programma cumulativo 30 secondi junior
     cumulative(30000, false);
   }
   else if (selected == 16)
@@ -215,5 +214,4 @@ void loop() {
     //eseguo la procedura di check
     systemCheck();
   }
-  Serial.println("HO FINITO");
 }
