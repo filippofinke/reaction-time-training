@@ -127,6 +127,7 @@ bool getLastState(int pin)
 void setLastState(int pin, bool state)
 {
   int index = getLabel(pin);
+  buttonStatus[index] = state;
   if (state == HIGH && pin == 44)
   {
     if (resetTime != 0)
@@ -137,7 +138,7 @@ void setLastState(int pin, bool state)
         programRunning = false;
         resetTime = 0;
         resetLeds();
-        setLcdText("Esco dal programma","","","BATTAK 2.0");
+        setLcdText("Esco dal programma", "", "", "BATTAK 2.0");
         delay(1000);
       }
     }
@@ -150,7 +151,6 @@ void setLastState(int pin, bool state)
   {
     resetTime = 0;
   }
-  buttonStatus[index] = state;
 }
 
 /**
