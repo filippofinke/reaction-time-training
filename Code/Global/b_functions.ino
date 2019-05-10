@@ -33,13 +33,17 @@ int getRandom(int pins[], int size) {
   @param firstLine la prima riga.
   @secondLine la seconda riga.
 */
-void setLcdText(String firstLine, String secondLine)
+void setLcdText(String firstLine, String secondLine, String thirdLine, String fourthLine)
 {
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print(firstLine);
   lcd.setCursor(0, 1);
   lcd.print(secondLine);
+  lcd.setCursor(0, 2);
+  lcd.print(thirdLine);
+  lcd.setCursor(0, 3);
+  lcd.print(fourthLine);
 }
 
 /**
@@ -133,6 +137,9 @@ void setLastState(int pin, bool state)
       {
         programRunning = false;
         resetTime = 0;
+        resetLeds();
+        setLcdText("Esco dal programma","","","");
+        delay(1000);
       }
     }
     else

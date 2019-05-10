@@ -55,7 +55,7 @@ boolean programRunning = true;
 /**
    Istanza del display LCD.
 */
-LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
+LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 /**
    Metodo di setup che si occupa di avviare la connessione seriale, SDA, SCL, impostare il display LCD e i vari pin.
@@ -64,7 +64,7 @@ void setup() {
   Wire.begin();
   Serial.begin(9600);
 
-  lcd.begin(16, 2);
+  lcd.begin(20, 4);
   lcd.backlight();
 
   pinMode(buzzerPin, OUTPUT);

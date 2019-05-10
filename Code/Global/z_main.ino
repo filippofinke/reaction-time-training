@@ -31,7 +31,7 @@ int waitUser() {
 
   resetLeds();
   //menù delle modalità
-  setLcdText("Premi il numero", "del programma");
+  setLcdText("Premi il numero", "del programma","","");
   bool waiting = true;
   String selected = "";
   int index = 0;
@@ -55,7 +55,7 @@ int waitUser() {
           selected = selected + getLabel(bpin);
           Serial.println(selected);
           index++;
-          setLcdText("Selezionato: " + selected, "Per uscire #");
+          setLcdText("Selezionato: " + selected, "Per uscire #", "", "");
         }
       }
     }
@@ -68,7 +68,7 @@ int waitUser() {
     ls = !ls;
     digitalWrite(45, ls);
     delay(500);
-    setLcdText("Avvio in", String(((3 * 500) - (i * 500)) / 1000) + " secondi");
+    setLcdText("Avvio in", String(((3 * 500) - (i * 500)) / 1000) + " secondi", "", "");
   }
   resetLeds();
   return atol(selected.c_str());
@@ -79,10 +79,10 @@ int waitUser() {
  */
 void loop() {
   programRunning = true;
-  setLcdText("In attesa...", "Premi @");
+  setLcdText("Per iniziare premi", "il pulsante @", "BATTAK 2.0", "3 Progetto SAMT");
   //aspetto che l'utente scelga il programma
   int selected = waitUser();
-  setLcdText("Programma", "N: " + String(selected));
+  setLcdText("Programma", "N: " + String(selected), "", "");
   //resetto lo stato dei bottoni
   resetButtonsState();
   //resetto il dispaly 7 segmenti

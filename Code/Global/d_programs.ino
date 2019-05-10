@@ -11,8 +11,8 @@
 */
 void systemCheck() {
   //Stampa sul display LCD.
-  setLcdText("Avvio procedura", "di test");
-  setLcdText("Test buzzer", "1 secondo");
+  setLcdText("Avvio procedura", "di test","","");
+  setLcdText("Test buzzer", "1 secondo","","");
   //Il buzzer emette un suono a frequenza 2000.
   tone(buzzerPin, 2000);
   //Aspetta 1 secondo.
@@ -32,14 +32,14 @@ void systemCheck() {
     {
       text = "@";
     }
-    setLcdText("Premi il tasto", text);
+    setLcdText("Premi il tasto", text,"","");
     while (!isPressed(pin)) {
     }
     digitalWrite(pin + 1, HIGH);
-    setLcdText("Led del tasto", "acceso");
+    setLcdText("Led del tasto", "acceso","","");
     delay(1000);
   }
-  setLcdText("Fine", "Procedura");
+  setLcdText("Fine", "Procedura","","");
   delay(2500);
 }
 
@@ -52,7 +52,7 @@ void systemCheck() {
 void boards() {
   resetLeds();
   resetButtonsState();
-  setLcdText("Seleziona", "tabellina (2-9)");
+  setLcdText("Seleziona", "tabellina (2-9)","","");
   bool waiting = true;
   int boards = 0;
   while (waiting && programRunning)
@@ -74,7 +74,7 @@ void boards() {
       }
     }
   }
-  setLcdText("Tabellina", "del " + String(boards));
+  setLcdText("Tabellina", "del " + String(boards),"","");
   long startTime = millis();
   for (int i = 0; i < 12 && programRunning; i++)
   {
@@ -83,7 +83,7 @@ void boards() {
     int two = random(0, 9);
     int sum = one * two;
 
-    setLcdText(String(one) + " * " + String(two) + " = ?", "");
+    setLcdText(String(one) + " * " + String(two) + " = ?", "","","");
 
     startTime = millis();
     waiting = true;
@@ -131,7 +131,7 @@ void boards() {
 void fastreaction() {
   int schemes = 10;
   resetLeds();
-  setLcdText("Seleziona", "pulsanti (1-11)");
+  setLcdText("Seleziona", "pulsanti (1-11)","","");
   bool waiting = true;
   int buttons = 0;
   while (waiting && programRunning)
@@ -159,7 +159,7 @@ void fastreaction() {
   for (int i = 0; i < schemes && programRunning; i++)
   {
     resetLeds();
-    setLcdText("Schema " + String(i + 1) + "/" + String(schemes), "Bottoni: " + String(buttons));
+    setLcdText("Schema " + String(i + 1) + "/" + String(schemes), "Bottoni: " + String(buttons),"","");
     for (int a = 0; a < buttons; a++)
     {
       bool random = true;
@@ -228,7 +228,7 @@ void fastreaction() {
 */
 void flashtest(bool onButtons) {
   resetLeds();
-  setLcdText("Seleziona tempo", "1 - 8 s");
+  setLcdText("Seleziona tempo", "1 - 8 s","","");
   bool waiting = true;
   int selectedtime = 0;
   while (waiting && programRunning)
@@ -250,7 +250,7 @@ void flashtest(bool onButtons) {
       }
     }
   }
-  setLcdText("Selezionato:", String(selectedtime / 1000) + " s");
+  setLcdText("Selezionato:", String(selectedtime / 1000) + " s","","");
   resetLeds();
   int points = 0;
   bool playing = true;
@@ -259,7 +259,7 @@ void flashtest(bool onButtons) {
   {
     resetLeds();
     sendData(1, i + 1);
-    setLcdText("Schema:", String(i + 1) + "/5");
+    setLcdText("Schema:", String(i + 1) + "/5","","");
     int sequence[6];
     if (onButtons)
     {
@@ -349,7 +349,7 @@ void flashtest(bool onButtons) {
           {
             playing = false;
             insideLevel = false;
-            setLcdText("Hai sbagliato", "");
+            setLcdText("Hai sbagliato", "","","");
             delay(1000);
           }
           delay(150);
@@ -382,7 +382,7 @@ void simon() {
   for (int i = 0; i < 17 && playing && programRunning; i++)
   {
     sendData(1, (i + 1));
-    setLcdText("Livello:" + String(i + 1), "Osserva");
+    setLcdText("Livello:" + String(i + 1), "Osserva","","");
     for (int x = 0; x < toShow; x++)
     {
       for (int y = 0; y < 3; y++)
@@ -401,7 +401,7 @@ void simon() {
     tone(buzzerPin, 2000);
     delay(250);
     noTone(buzzerPin);
-    setLcdText("Ripeti la", "sequenza");
+    setLcdText("Ripeti la", "sequenza","","");
     resetButtonsState();
     pressed = 0;
     toShow += 1;
@@ -435,7 +435,7 @@ void simon() {
           else
           {
             playing = false;
-            setLcdText("Hai sbagliato", "la sequenza");
+            setLcdText("Hai sbagliato", "la sequenza","","");
             delay(1000);
           }
         }
@@ -766,7 +766,7 @@ void beepTest() {
   {
     Serial.print("Livello: ");
     Serial.println(l + 1);
-    setLcdText("Livello:", String(l + 1));
+    setLcdText("Livello:", String(l + 1),"","");
     while (pressedButtons <= buttons * l && errors <= 2 && programRunning)
     {
       elapsed = (millis() - start);
@@ -844,7 +844,7 @@ void mathsum() {
   bool waiting = true;
   int millisec = 0;
   int points = 0;
-  setLcdText("Tempo in s", "Scegli tra 2-9");
+  setLcdText("Tempo in s", "Scegli tra 2-9","","");
   while (waiting)
   {
     for (int i = 0; i < SIZE; i++)
@@ -870,7 +870,7 @@ void mathsum() {
       }
     }
   }
-  setLcdText("Tempo:" + String(millisec / 1000), "Inizio in 3 sec");
+  setLcdText("Tempo:" + String(millisec / 1000), "Inizio in 3 sec","","");
   delay(3000);
   resetButtonsState();
   resetLeds();
@@ -886,7 +886,7 @@ void mathsum() {
       two = random(0, 9);
       sum = one + two;
     }
-    setLcdText(String(one) + " + " + String(two) + " = ?", String(points) + "/8");
+    setLcdText(String(one) + " + " + String(two) + " = ?", String(points) + "/8","","");
     Serial.print(one);
     Serial.print(" + ");
     Serial.print(two);
@@ -909,7 +909,7 @@ void mathsum() {
         {
           Serial.println("Risultato corretto Passo al prossimo!");
           points++;
-          setLcdText("Punti (MAX 8)", String(points));
+          setLcdText("Punti (MAX 8)", String(points),"","");
           waiting = false;
         }
       }
@@ -920,8 +920,8 @@ void mathsum() {
   Serial.println("/8");
   if (points == 8)
   {
-    setLcdText("Punteggio", "massimo!");
+    setLcdText("Punteggio", "massimo!","","");
     winSong();
   }
-  setLcdText("Finito", String(points) + "/8");
+  setLcdText("Finito", String(points) + "/8","","");
 }
