@@ -11,8 +11,9 @@
 */
 void systemCheck() {
   //Stampa sul display LCD.
-  setLcdText("Avvio procedura", "di test","","");
-  setLcdText("Test buzzer", "1 secondo","","");
+  setLcdText("Procedura di test", "Attendi...", "", "BATTAK 2.0");
+  delay(1000);
+  setLcdText("Test buzzer", "1 secondo", "", "BATTAK 2.0");
   //Il buzzer emette un suono a frequenza 2000.
   tone(buzzerPin, 2000);
   //Aspetta 1 secondo.
@@ -20,26 +21,27 @@ void systemCheck() {
   //Fa tacere il buzzer.
   noTone(buzzerPin);
   //Ciclo che scorre tutti i pulsanti del sistema.
-  for (int i = 0; i < SIZE; i++)
+  for (int i = 0; i < SIZE && programRunning; i++)
   {
     int pin = buttonPins[i];
     String text = String(getLabel(pin));
-    if (text == 10)
+    if (text == "10")
     {
       text = "#";
     }
-    else if (text == 11)
+    else if (text == "11")
     {
       text = "@";
     }
-    setLcdText("Premi il tasto", text,"","");
-    while (!isPressed(pin)) {
+    setLcdText("Premi il pulsante", text, "", "BATTAK 2.0");
+    while (!isPressed(pin) && programRunning) {
+      isPressed(44);
     }
     digitalWrite(pin + 1, HIGH);
-    setLcdText("Led del tasto", "acceso","","");
+    setLcdText("Il pulsante dovrebbe", "essere accesso", "", "BATTAK 2.0");
     delay(1000);
   }
-  setLcdText("Fine", "Procedura","","");
+  setLcdText("Procedura conclusa", "", "", "BATTAK 2.0");
   delay(2500);
 }
 
@@ -52,7 +54,7 @@ void systemCheck() {
 void boards() {
   resetLeds();
   resetButtonsState();
-  setLcdText("Seleziona", "tabellina (2-9)","","");
+  setLcdText("Seleziona una", "tabellina da 2 a 9", "", "BATTAK 2.0");
   bool waiting = true;
   int boards = 0;
   while (waiting && programRunning)
@@ -74,7 +76,7 @@ void boards() {
       }
     }
   }
-  setLcdText("Tabellina", "del " + String(boards),"","");
+  setLcdText("Hai selezionato la", "tabellina del " + String(boards), "", "BATTAK 2.0");
   long startTime = millis();
   for (int i = 0; i < 12 && programRunning; i++)
   {
@@ -83,13 +85,13 @@ void boards() {
     int two = random(0, 9);
     int sum = one * two;
 
-    setLcdText(String(one) + " * " + String(two) + " = ?", "","","");
+    setLcdText("Tabellina del " + String(boards), String(one) + " * " + String(two) + " = ?", "", "BATTAK 2.0");
 
     startTime = millis();
     waiting = true;
     while (waiting && programRunning)
     {
-      sendData(1, millis() - startTime);
+      sendData(1, (millis() - startTime) / 100);
 
       for (int x = 0; x < SIZE; x++)
       {
@@ -98,8 +100,6 @@ void boards() {
         bool currentState = isPressed(bpin);
         if (currentState == HIGH && currentState != lastState)
         {
-          Serial.println(sum);
-          Serial.println(getLabel(bpin));
           if (getLabel(bpin) == sum)
           {
             digitalWrite(bpin + 1, HIGH);
@@ -131,7 +131,7 @@ void boards() {
 void fastreaction() {
   int schemes = 10;
   resetLeds();
-  setLcdText("Seleziona", "pulsanti (1-11)","","");
+  setLcdText("Seleziona un numero", "di pulsanti per", "schema (Da 1 a 11)", "BATTAK 2.0");
   bool waiting = true;
   int buttons = 0;
   while (waiting && programRunning)
@@ -159,7 +159,7 @@ void fastreaction() {
   for (int i = 0; i < schemes && programRunning; i++)
   {
     resetLeds();
-    setLcdText("Schema " + String(i + 1) + "/" + String(schemes), "Bottoni: " + String(buttons),"","");
+    setLcdText("Schema: " + String(i + 1) + "/" + String(schemes), "Pulsanti: " + String(buttons), "", "BATTAK 2.0");
     for (int a = 0; a < buttons; a++)
     {
       bool random = true;
@@ -198,7 +198,6 @@ void fastreaction() {
         {
           for (int x = 0; x < buttons; x++) {
             if (buttonseq[x] == pin) {
-              Serial.println(String(buttonseq[x]) + " " + String(pin));
               digitalWrite(pin + 1, LOW);
               pressed += 1;
               points += 1;
@@ -228,7 +227,7 @@ void fastreaction() {
 */
 void flashtest(bool onButtons) {
   resetLeds();
-  setLcdText("Seleziona tempo", "1 - 8 s","","");
+  setLcdText("Scegli un tempo per", "spegnere tutti i", "pulsanti (1-8)", "BATTAK 2.0");
   bool waiting = true;
   int selectedtime = 0;
   while (waiting && programRunning)
@@ -250,7 +249,7 @@ void flashtest(bool onButtons) {
       }
     }
   }
-  setLcdText("Selezionato:", String(selectedtime / 1000) + " s","","");
+  setLcdText("Hai scelto: " + String(selectedtime / 1000) + " s", "", "", "BATTAK 2.0");
   resetLeds();
   int points = 0;
   bool playing = true;
@@ -259,7 +258,7 @@ void flashtest(bool onButtons) {
   {
     resetLeds();
     sendData(1, i + 1);
-    setLcdText("Schema:", String(i + 1) + "/5","","");
+    setLcdText("Schema: " + String(i + 1) + "/5", "", "", "BATTAK 2.0");
     int sequence[6];
     if (onButtons)
     {
@@ -325,7 +324,6 @@ void flashtest(bool onButtons) {
           bool edited = false;
           for (int x = 0; x < 6; x++) {
             if (sequence[x] == pin) {
-              Serial.println(String(sequence[x]) + " " + String(pin));
               edited = true;
               if (onButtons)
               {
@@ -349,7 +347,7 @@ void flashtest(bool onButtons) {
           {
             playing = false;
             insideLevel = false;
-            setLcdText("Hai sbagliato", "","","");
+            setLcdText("Hai sbagliato a", "premere un pulsante!", "", "BATTAK 2.0");
             delay(1000);
           }
           delay(150);
@@ -382,7 +380,7 @@ void simon() {
   for (int i = 0; i < 17 && playing && programRunning; i++)
   {
     sendData(1, (i + 1));
-    setLcdText("Livello:" + String(i + 1), "Osserva","","");
+    setLcdText("Livello:" + String(i + 1), "Osserva la sequenza", "", "BATTAK 2.0");
     for (int x = 0; x < toShow; x++)
     {
       for (int y = 0; y < 3; y++)
@@ -401,7 +399,7 @@ void simon() {
     tone(buzzerPin, 2000);
     delay(250);
     noTone(buzzerPin);
-    setLcdText("Ripeti la", "sequenza","","");
+    setLcdText("Ripeti la sequenza", "", "", "BATTAK 2.0");
     resetButtonsState();
     pressed = 0;
     toShow += 1;
@@ -415,11 +413,6 @@ void simon() {
         bool presscurrentState = isPressed(pin);
         if (presslastState == HIGH && presslastState != presscurrentState)
         {
-          Serial.println("Premuto:");
-          Serial.println(pin);
-          Serial.println("Aspettato:");
-          Serial.println(sequence[pressed]);
-          Serial.println("################");
           if (pin == sequence[pressed])
           {
             digitalWrite(pin + 1, HIGH);
@@ -435,7 +428,7 @@ void simon() {
           else
           {
             playing = false;
-            setLcdText("Hai sbagliato", "la sequenza","","");
+            setLcdText("Hai sbagliato a", "ripetere la sequenza", "", "BATTAK 2.0");
             delay(1000);
           }
         }
@@ -477,8 +470,6 @@ void temporized(int maxbuttons, boolean senior) {
     sendData(0, (timeout - elapsed) / 100);
     if (elapsed > timeout)
     {
-      Serial.print("Timeout: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
       if (senior)
       {
@@ -489,8 +480,6 @@ void temporized(int maxbuttons, boolean senior) {
         currentPin = getRandom(juniorPins, JUNIOR_SIZE);
       }
       startButton = millis();
-      Serial.print("Accendo: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
     bool presslastState = getLastState(currentPin);
@@ -499,8 +488,6 @@ void temporized(int maxbuttons, boolean senior) {
     {
       pressedButtons++;
       sendData(1, pressedButtons);
-      Serial.print("Premuto: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
       if (senior)
       {
@@ -511,8 +498,6 @@ void temporized(int maxbuttons, boolean senior) {
         currentPin = getRandom(juniorPins, JUNIOR_SIZE);
       }
       startButton = millis();
-      Serial.print("Accendo: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
     for (int i = 0; i < SIZE; i++)
@@ -531,12 +516,10 @@ void temporized(int maxbuttons, boolean senior) {
         {
           timeout = 200;
         }
-        Serial.print("Hai sbagliato, nuovo timeout: ");
-        Serial.println(timeout);
+        setLcdText("Hai sbagliato,", "diminuisco il delay", "", "BATTAK 2.0");
       }
     }
   }
-  Serial.print("Fine modalità!");
 }
 
 /**
@@ -551,10 +534,7 @@ void temporized(int maxbuttons, boolean senior) {
 void angularStretching(int maxbuttons, int program) {
 #define ANGULAR_STRETCHING_SIZE 7
   int timeout = 1000;
-
   int angularPins[ANGULAR_STRETCHING_SIZE] = {22, 42, 24, 30, 32, 38, 40};
-  Serial.print("MAXBUTTONS: ");
-  Serial.println(maxbuttons);
   long start = millis();
   long startButton = millis();
   long elapsed = 0;
@@ -572,13 +552,9 @@ void angularStretching(int maxbuttons, int program) {
     }
     if (millis() - startButton > timeout)
     {
-      Serial.print("Timeout: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
       currentPin = getRandom(angularPins, ANGULAR_STRETCHING_SIZE);
       startButton = millis();
-      Serial.print("Accendo: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
     bool presslastState = getLastState(currentPin);
@@ -591,13 +567,9 @@ void angularStretching(int maxbuttons, int program) {
       {
         sendData(0, maxbuttons - leftButtons);
       }
-      Serial.print("Premuto: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
       currentPin = getRandom(angularPins, ANGULAR_STRETCHING_SIZE);
       startButton = millis();
-      Serial.print("Accendo: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
     for (int i = 0; i < SIZE; i++)
@@ -616,12 +588,10 @@ void angularStretching(int maxbuttons, int program) {
         {
           timeout = 200;
         }
-        Serial.print("Hai sbagliato, nuovo timeout: ");
-        Serial.println(timeout);
+        setLcdText("Hai sbagliato,", "diminuisco il delay", "", "BATTAK 2.0");
       }
     }
   }
-  Serial.print("Fine modalità!");
 }
 
 /**
@@ -634,10 +604,6 @@ void angularStretching(int maxbuttons, int program) {
    @param senior se usare array senior o junior.
 */
 void rush(long duration, int maxbuttons, boolean senior) {
-  Serial.print("DURATA ");
-  Serial.println(duration);
-  Serial.print("MAXBUTTONS: ");
-  Serial.println(maxbuttons);
   long start = millis();
   long elapsed = 0;
   int pressedButtons = 0;
@@ -665,8 +631,6 @@ void rush(long duration, int maxbuttons, boolean senior) {
     {
       pressedButtons++;
       sendData(1, pressedButtons);
-      Serial.print("Premuto: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
       if (senior)
       {
@@ -676,13 +640,9 @@ void rush(long duration, int maxbuttons, boolean senior) {
       {
         currentPin = getRandom(juniorPins, JUNIOR_SIZE);
       }
-      Serial.print("Accendo: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
   }
-  Serial.print("Fine modalità! Punteggio: ");
-  Serial.println(pressedButtons);
 }
 
 /**
@@ -694,9 +654,6 @@ void rush(long duration, int maxbuttons, boolean senior) {
    @param senior se usare array senior o junior.
 */
 void cumulative(long duration, boolean senior) {
-  Serial.print("DURATA ");
-  Serial.println(duration);
-  Serial.println(senior);
   long start = millis();
   long elapsed = 0;
   int currentPin;
@@ -722,8 +679,6 @@ void cumulative(long duration, boolean senior) {
     {
       pressedButtons++;
       sendData(1, pressedButtons);
-      Serial.print("Premuto: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, LOW);
       if (senior)
       {
@@ -733,23 +688,19 @@ void cumulative(long duration, boolean senior) {
       {
         currentPin = getRandom(juniorPins, JUNIOR_SIZE);
       }
-      Serial.print("Accendo: ");
-      Serial.println(currentPin);
       digitalWrite(currentPin + 1, HIGH);
     }
   }
-  Serial.print("Fine modalità! Punteggio: ");
-  Serial.println(pressedButtons);
   resetButtonsState();
   resetLeds();
 }
 
 /**
- * Programma numero: 6, Beep Test
- * 
- * 10 livelli con 30 pulsanti per livello. L'utente deve premere i pulsanti ad
- * una determinata frequenza, se sbaglia o non fa in tempo ci sarà un feedback audio.
- */
+   Programma numero: 6, Beep Test
+
+   10 livelli con 30 pulsanti per livello. L'utente deve premere i pulsanti ad
+   una determinata frequenza, se sbaglia o non fa in tempo ci sarà un feedback audio.
+*/
 void beepTest() {
   int levels = 10;
   int buttons = 10;
@@ -764,17 +715,13 @@ void beepTest() {
   digitalWrite(currentPin + 1, HIGH);
   for (int l = 0; l < levels && errors <= 2 && programRunning; l++)
   {
-    Serial.print("Livello: ");
-    Serial.println(l + 1);
-    setLcdText("Livello:", String(l + 1),"","");
+    setLcdText("Livello:", String(l + 1), "", "BATTAK 2.0");
     while (pressedButtons <= buttons * l && errors <= 2 && programRunning)
     {
       elapsed = (millis() - start);
       sendData(0, elapsed / 100);
       if (millis() - startButton > timeout)
       {
-        Serial.print("Timeout: ");
-        Serial.println(currentPin);
         digitalWrite(currentPin + 1, LOW);
         currentPin = getRandom(buttonPins, SIZE);
         errors++;
@@ -786,8 +733,6 @@ void beepTest() {
           delay(50);
         }
         startButton = millis();
-        Serial.print("Accendo: ");
-        Serial.println(currentPin);
         digitalWrite(currentPin + 1, HIGH);
       }
       bool presslastState = getLastState(currentPin);
@@ -797,13 +742,9 @@ void beepTest() {
         errors = 0;
         pressedButtons++;
         sendData(1, pressedButtons);
-        Serial.print("Premuto: ");
-        Serial.println(currentPin);
         digitalWrite(currentPin + 1, LOW);
         currentPin = getRandom(buttonPins, SIZE);
         startButton = millis();
-        Serial.print("Accendo: ");
-        Serial.println(currentPin);
         digitalWrite(currentPin + 1, HIGH);
       }
       for (int i = 0; i < SIZE; i++)
@@ -829,22 +770,20 @@ void beepTest() {
       }
     }
   }
-  Serial.print("Fine modalità! Punteggio: ");
-  Serial.println(pressedButtons);
 }
 
 /**
- * Programma numero: 9, Somma aritmetica
- * 
- * Il programma chiede all'utente un tempo massimo per risposta.
- * Vengono proposte 8 addizioni.
- */
+   Programma numero: 9, Somma aritmetica
+
+   Il programma chiede all'utente un tempo massimo per risposta.
+   Vengono proposte 8 addizioni.
+*/
 void mathsum() {
 
   bool waiting = true;
   int millisec = 0;
   int points = 0;
-  setLcdText("Tempo in s", "Scegli tra 2-9","","");
+  setLcdText("Seleziona un tempo", "entro il quale", "rispondere (2 - 9 s)", "BATTAK 2.0");
   while (waiting)
   {
     for (int i = 0; i < SIZE; i++)
@@ -859,8 +798,6 @@ void mathsum() {
         if (label >= 2 && label <= 9)
         {
           millisec = label * 1000;
-          Serial.print("Ms:");
-          Serial.println(millisec);
           waiting = false;
         }
         else
@@ -870,7 +807,7 @@ void mathsum() {
       }
     }
   }
-  setLcdText("Tempo:" + String(millisec / 1000), "Inizio in 3 sec","","");
+  setLcdText("Hai selezionato: " + String(millisec / 1000), "Inizio in 3 secondi", "", "BATTAK 2.0");
   delay(3000);
   resetButtonsState();
   resetLeds();
@@ -886,13 +823,7 @@ void mathsum() {
       two = random(0, 9);
       sum = one + two;
     }
-    setLcdText(String(one) + " + " + String(two) + " = ?", String(points) + "/8","","");
-    Serial.print(one);
-    Serial.print(" + ");
-    Serial.print(two);
-    Serial.print(" = ");
-    Serial.println(sum);
-
+    setLcdText(String(one) + " + " + String(two) + " = ?", "Punti: " + String(points) + "/8", "", "BATTAK 2.0");
     sendData(0, one);
     sendData(1, two);
 
@@ -907,21 +838,17 @@ void mathsum() {
         bool currentState = isPressed(bpin);
         if (currentState == HIGH && currentState != lastState && getLabel(bpin) == sum)
         {
-          Serial.println("Risultato corretto Passo al prossimo!");
           points++;
-          setLcdText("Punti (MAX 8)", String(points),"","");
+          setLcdText(String(one) + " + " + String(two) + " = ?", "Punti: " + String(points) + "/8", "", "BATTAK 2.0");
           waiting = false;
         }
       }
     }
   }
-  Serial.print("Punti: ");
-  Serial.print(points);
-  Serial.println("/8");
   if (points == 8)
   {
-    setLcdText("Punteggio", "massimo!","","");
+    setLcdText("Punteggio massimo!", "", "", "BATTAK 2.0");
     winSong();
   }
-  setLcdText("Finito", String(points) + "/8","","");
+  setLcdText("Hai finito!", "Punti: " + String(points) + "/8", "", "BATTAK 2.0");
 }

@@ -132,13 +132,12 @@ void setLastState(int pin, bool state)
     if (resetTime != 0)
     {
       long elapsed = millis() - resetTime;
-      Serial.println(elapsed);
       if (elapsed > 2500)
       {
         programRunning = false;
         resetTime = 0;
         resetLeds();
-        setLcdText("Esco dal programma","","","");
+        setLcdText("Esco dal programma","","","BATTAK 2.0");
         delay(1000);
       }
     }
