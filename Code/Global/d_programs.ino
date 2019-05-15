@@ -68,7 +68,7 @@ void boards() {
       {
         digitalWrite(bpin + 1, HIGH);
         int label = getLabel(bpin);
-        if (label >= 1 && label <= 11)
+        if (label >= 2 && label <= 9)
         {
           boards = label;
           waiting = false;
