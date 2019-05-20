@@ -411,7 +411,7 @@ void simon() {
         int pin = buttonPins[b];
         bool presslastState = getLastState(pin);
         bool presscurrentState = isPressed(pin);
-        if (presslastState == HIGH && presslastState != presscurrentState)
+        if (presscurrentState == HIGH && presslastState == LOW)
         {
           if (pin == sequence[pressed])
           {
@@ -419,11 +419,11 @@ void simon() {
             pressed += 1;
             points += 1;
             sendData(0, points);
-            delay(150);
             if (pressed == toShow - 1)
             {
               insideLevel = false;
             }
+            break;
           }
           else
           {
