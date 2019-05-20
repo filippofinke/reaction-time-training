@@ -162,5 +162,6 @@ bool isPressed(int pin)
 {
   bool state = !digitalRead(pin);
   setLastState(pin, state);
+  delay(5);
   return state;
 }
