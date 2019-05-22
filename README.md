@@ -11,4 +11,4 @@ Realizzazione di un sistema di gioco e simulazione per l'allenamento dei tempi d
 
 ## Date:
 - Inizio: 13/02/2019
-- Fine: 17/05/2019
+- Fine: 22/05/2019
