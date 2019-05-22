@@ -11,9 +11,9 @@
 */
 void systemCheck() {
   //Stampa sul display LCD.
-  setLcdText("Procedura di test", "Attendi...", "", "BATTAK 2.0");
+  setLcdText("Procedura di test", "Attendi...", "", "BATAK 2.0");
   delay(1000);
-  setLcdText("Test buzzer", "1 secondo", "", "BATTAK 2.0");
+  setLcdText("Test buzzer", "1 secondo", "", "BATAK 2.0");
   //Il buzzer emette un suono a frequenza 2000.
   tone(buzzerPin, 2000);
   //Aspetta 1 secondo.
@@ -33,15 +33,15 @@ void systemCheck() {
     {
       text = "@";
     }
-    setLcdText("Premi il pulsante", text, "", "BATTAK 2.0");
+    setLcdText("Premi il pulsante", text, "", "BATAK 2.0");
     while (!isPressed(pin) && programRunning) {
       isPressed(44);
     }
     digitalWrite(pin + 1, HIGH);
-    setLcdText("Il pulsante dovrebbe", "essere accesso", "", "BATTAK 2.0");
+    setLcdText("Il pulsante dovrebbe", "essere accesso", "", "BATAK 2.0");
     delay(1000);
   }
-  setLcdText("Procedura conclusa", "", "", "BATTAK 2.0");
+  setLcdText("Procedura conclusa", "", "", "BATAK 2.0");
   delay(2500);
 }
 
@@ -54,7 +54,7 @@ void systemCheck() {
 void boards() {
   resetLeds();
   resetButtonsState();
-  setLcdText("Seleziona una", "tabellina da 2 a 9", "", "BATTAK 2.0");
+  setLcdText("Seleziona una", "tabellina da 2 a 9", "", "BATAK 2.0");
   bool waiting = true;
   int boards = 0;
   while (waiting && programRunning)
@@ -76,7 +76,7 @@ void boards() {
       }
     }
   }
-  setLcdText("Hai selezionato la", "tabellina del " + String(boards), "", "BATTAK 2.0");
+  setLcdText("Hai selezionato la", "tabellina del " + String(boards), "", "BATAK 2.0");
   long startTime = millis();
   for (int i = 0; i < 12 && programRunning; i++)
   {
@@ -85,7 +85,7 @@ void boards() {
     int two = random(0, 9);
     int sum = one * two;
 
-    setLcdText("Tabellina del " + String(boards), String(one) + " * " + String(two) + " = ?", "", "BATTAK 2.0");
+    setLcdText("Tabellina del " + String(boards), String(one) + " * " + String(two) + " = ?", "", "BATAK 2.0");
 
     startTime = millis();
     waiting = true;
@@ -131,7 +131,7 @@ void boards() {
 void fastreaction() {
   int schemes = 10;
   resetLeds();
-  setLcdText("Seleziona un numero", "di pulsanti per", "schema (Da 1 a 11)", "BATTAK 2.0");
+  setLcdText("Seleziona un numero", "di pulsanti per", "schema (Da 1 a 11)", "BATAK 2.0");
   bool waiting = true;
   int buttons = 0;
   while (waiting && programRunning)
@@ -159,7 +159,7 @@ void fastreaction() {
   for (int i = 0; i < schemes && programRunning; i++)
   {
     resetLeds();
-    setLcdText("Schema: " + String(i + 1) + "/" + String(schemes), "Pulsanti: " + String(buttons), "", "BATTAK 2.0");
+    setLcdText("Schema: " + String(i + 1) + "/" + String(schemes), "Pulsanti: " + String(buttons), "", "BATAK 2.0");
     for (int a = 0; a < buttons; a++)
     {
       bool random = true;
@@ -226,7 +226,7 @@ void fastreaction() {
 */
 void flashtest(bool onButtons) {
   resetLeds();
-  setLcdText("Scegli un tempo per", "spegnere tutti i", "pulsanti (1-8)", "BATTAK 2.0");
+  setLcdText("Scegli un tempo per", "spegnere tutti i", "pulsanti (1-8)", "BATAK 2.0");
   bool waiting = true;
   int selectedtime = 0;
   while (waiting && programRunning)
@@ -248,7 +248,7 @@ void flashtest(bool onButtons) {
       }
     }
   }
-  setLcdText("Hai scelto: " + String(selectedtime / 1000) + " s", "", "", "BATTAK 2.0");
+  setLcdText("Hai scelto: " + String(selectedtime / 1000) + " s", "", "", "BATAK 2.0");
   resetLeds();
   int points = 0;
   bool playing = true;
@@ -257,7 +257,7 @@ void flashtest(bool onButtons) {
   {
     resetLeds();
     sendData(1, i + 1);
-    setLcdText("Schema: " + String(i + 1) + "/5", "", "", "BATTAK 2.0");
+    setLcdText("Schema: " + String(i + 1) + "/5", "", "", "BATAK 2.0");
     int sequence[6];
     if (onButtons)
     {
@@ -346,7 +346,7 @@ void flashtest(bool onButtons) {
           {
             playing = false;
             insideLevel = false;
-            setLcdText("Hai sbagliato a", "premere un pulsante!", "", "BATTAK 2.0");
+            setLcdText("Hai sbagliato a", "premere un pulsante!", "", "BATAK 2.0");
             delay(1000);
           }
           delay(150);
@@ -380,7 +380,7 @@ void simon() {
   for (int i = 0; i < 17 && playing && programRunning; i++)
   {
     sendData(1, (i + 1));
-    setLcdText("Livello:" + String(i + 1), "Osserva la sequenza", "", "BATTAK 2.0");
+    setLcdText("Livello:" + String(i + 1), "Osserva la sequenza", "", "BATAK 2.0");
     for (int x = 0; x < toShow; x++)
     {
       for (int y = 0; y < 3; y++)
@@ -399,7 +399,7 @@ void simon() {
     tone(buzzerPin, 2000);
     delay(250);
     noTone(buzzerPin);
-    setLcdText("Ripeti la sequenza", "", "", "BATTAK 2.0");
+    setLcdText("Ripeti la sequenza", "", "", "BATAK 2.0");
     resetButtonsState();
     pressed = 0;
     toShow += 1;
@@ -428,7 +428,7 @@ void simon() {
           else
           {
             playing = false;
-            setLcdText("Hai sbagliato a", "ripetere la sequenza", "", "BATTAK 2.0");
+            setLcdText("Hai sbagliato a", "ripetere la sequenza", "", "BATAK 2.0");
             delay(1000);
           }
         }
@@ -516,7 +516,7 @@ void temporized(int maxbuttons, boolean senior) {
         {
           timeout = 200;
         }
-        setLcdText("Hai sbagliato,", "diminuisco il delay", "", "BATTAK 2.0");
+        setLcdText("Hai sbagliato,", "diminuisco il delay", "", "BATAK 2.0");
       }
     }
   }
@@ -588,7 +588,7 @@ void angularStretching(int maxbuttons, int program) {
         {
           timeout = 200;
         }
-        setLcdText("Hai sbagliato,", "diminuisco il delay", "", "BATTAK 2.0");
+        setLcdText("Hai sbagliato,", "diminuisco il delay", "", "BATAK 2.0");
       }
     }
   }
@@ -715,7 +715,7 @@ void beepTest() {
   digitalWrite(currentPin + 1, HIGH);
   for (int l = 0; l < levels && errors <= 2 && programRunning; l++)
   {
-    setLcdText("Livello:", String(l + 1), "", "BATTAK 2.0");
+    setLcdText("Livello:", String(l + 1), "", "BATAK 2.0");
     while (pressedButtons <= buttons * l && errors <= 2 && programRunning)
     {
       elapsed = (millis() - start);
@@ -783,7 +783,7 @@ void mathsum() {
   bool waiting = true;
   int millisec = 0;
   int points = 0;
-  setLcdText("Seleziona un tempo", "entro il quale", "rispondere (2 - 9 s)", "BATTAK 2.0");
+  setLcdText("Seleziona un tempo", "entro il quale", "rispondere (2 - 9 s)", "BATAK 2.0");
   while (waiting)
   {
     for (int i = 0; i < SIZE; i++)
@@ -807,7 +807,7 @@ void mathsum() {
       }
     }
   }
-  setLcdText("Hai selezionato: " + String(millisec / 1000), "Inizio in 3 secondi", "", "BATTAK 2.0");
+  setLcdText("Hai selezionato: " + String(millisec / 1000), "Inizio in 3 secondi", "", "BATAK 2.0");
   delay(3000);
   resetButtonsState();
   resetLeds();
@@ -823,7 +823,7 @@ void mathsum() {
       two = random(0, 9);
       sum = one + two;
     }
-    setLcdText(String(one) + " + " + String(two) + " = ?", "Punti: " + String(points) + "/8", "", "BATTAK 2.0");
+    setLcdText(String(one) + " + " + String(two) + " = ?", "Punti: " + String(points) + "/8", "", "BATAK 2.0");
     sendData(0, one);
     sendData(1, two);
 
@@ -839,7 +839,7 @@ void mathsum() {
         if (currentState == HIGH && currentState != lastState && getLabel(bpin) == sum)
         {
           points++;
-          setLcdText(String(one) + " + " + String(two) + " = ?", "Punti: " + String(points) + "/8", "", "BATTAK 2.0");
+          setLcdText(String(one) + " + " + String(two) + " = ?", "Punti: " + String(points) + "/8", "", "BATAK 2.0");
           waiting = false;
         }
       }
@@ -847,8 +847,8 @@ void mathsum() {
   }
   if (points == 8)
   {
-    setLcdText("Punteggio massimo!", "", "", "BATTAK 2.0");
+    setLcdText("Punteggio massimo!", "", "", "BATAK 2.0");
     winSong();
   }
-  setLcdText("Hai finito!", "Punti: " + String(points) + "/8", "", "BATTAK 2.0");
+  setLcdText("Hai finito!", "Punti: " + String(points) + "/8", "", "BATAK 2.0");
 }

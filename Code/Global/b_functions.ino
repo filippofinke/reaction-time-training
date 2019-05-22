@@ -138,7 +138,7 @@ void setLastState(int pin, bool state)
         programRunning = false;
         resetTime = 0;
         resetLeds();
-        setLcdText("Esco dal programma", "", "", "BATTAK 2.0");
+        setLcdText("Esco dal programma", "", "", "BATAK 2.0");
         delay(1000);
       }
     }
