@@ -185,7 +185,6 @@ void fastreaction() {
     resetButtonsState();
     int pressed = 0;
     bool insideLevel = true;
-    resetButtonsState();
     while (insideLevel && programRunning)
     {
       sendData(0, (millis() - startTime) / 100);
