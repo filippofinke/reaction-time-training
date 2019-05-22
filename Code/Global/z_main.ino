@@ -10,7 +10,7 @@
    valido.
 */
 int waitUser() {
-  setLcdText("Per iniziare premi", "il pulsante @", "", "BATTAK 2.0");
+  setLcdText("Per iniziare premi", "il pulsante @", "", "BATAK 2.0");
 
   bool state = false;
   int counter = 0;
@@ -36,7 +36,7 @@ int waitUser() {
   bool waiting = true;
   String selected = "";
   int index = 0;
-  setLcdText("Scegli un programma", "cliccando uno o piu", "pulsanti, da 0 a 23", "BATTAK 2.0");
+  setLcdText("Scegli un programma", "cliccando uno o piu", "pulsanti, da 0 a 23", "BATAK 2.0");
 
   //legge e controlla se il programma esiste
   while (waiting && index <= 1 && programRunning) {
@@ -68,9 +68,9 @@ int waitUser() {
   int sel = atol(selected.c_str());
 
   if (((sel >= 0 && sel <= 23) || sel == 99) && selected != "") {
-    setLcdText("Avvio il programma", "tieniti pronto!", "Aspetta 3 secondi", "BATTAK 2.0");
+    setLcdText("Avvio il programma", "tieniti pronto!", "Aspetta 3 secondi", "BATAK 2.0");
     delay(2000);
-    setLcdText("Manca 1 secondo!", "preparati!!", "", "BATTAK 2.0");
+    setLcdText("Manca 1 secondo!", "preparati!!", "", "BATAK 2.0");
     delay(1000);
   }
   resetLeds();
@@ -84,7 +84,7 @@ void loop() {
   programRunning = true;
   //aspetto che l'utente scelga il programma
   int selected = waitUser();
-  setLcdText("Programma attuale:" + String(selected), "", "", "BATTAK 2.0");
+  setLcdText("Programma attuale:" + String(selected), "", "", "BATAK 2.0");
   //resetto lo stato dei bottoni
   resetButtonsState();
   //resetto il dispaly 7 segmenti
