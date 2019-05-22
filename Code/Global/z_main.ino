@@ -18,7 +18,7 @@ int waitUser() {
   //animazione
   while (!state)
   {
-    if (counter >= 1000)
+    if (counter >= 10)
     {
       counter = 0;
       int ledPin = getRandom(ledPins, SIZE);
